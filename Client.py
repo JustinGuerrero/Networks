@@ -1,19 +1,19 @@
-import socket as s
+import socket
 
-HOST = '127.0.0.1'
-PORT = 8080
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((socket.gethostname(), 1234))
+
+full_msg = ''
+while True:
+    msg = s.recv(8)
+    if len(msg) <= 0:
+        break
+    full_msg+= msg.decode("utf-8")
+
+print(full_msg)
 
 
-with s.socket(s.AF_INET, s.SOCK_STREAM) as s:
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            conn.sendall(data)
+
+
 
 
