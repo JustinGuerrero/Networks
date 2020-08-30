@@ -16,6 +16,8 @@ import socket
 import time
 import pickle
 import sys
+host = '192.168.153.1'
+port = 1234
 
 class Server:
 
@@ -24,23 +26,31 @@ class Server:
 
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((socket.gethostname(), int(sys.argv[1])))
-        victory = socket.gethostname()
-        print(socket.gethostbyname(victory))
+        s.bind((host, port))
+        print()
+        print(socket.gethostname())
         s.listen(1000)
 
         while True:
-            clientsocket, address = s.accept()
-            print(f"connection from {address} has been established..")
+            data, addr = s.recvfrom(1234)
+            data = data.decode('utf-8')
+            print("Message from: " + str(addr))
+            print("From connected user: " + data)
+            data = data.upper()
+            print("Sending: " + data)
+            s.sendto(data.encode('utf-8'), addr)
+            # clientsocket, address = s.accept()
+            print(f"connection from {addr} has been established..")
 
-            d = {1: "hi", 2: "sacrifice at the alter!"}
-
-            msg = pickle.dumps(d)
-
-
-            msg = bytes(f'{len(msg): < {HEADERSIZE}}', "utf-8" )+ msg
-
-            clientsocket.send(msg)
+            #
+            # d = {1: "hi", 2: "sacrifice at the alter!"}
+            #
+            # msg = pickle.dumps(d)
+            #
+            #
+            # msg = bytes(f'{len(msg): < {HEADERSIZE}}', "utf-8" )+ msg
+            #
+            # clientsocket.send(msg)
 
 
 
