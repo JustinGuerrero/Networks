@@ -25,7 +25,8 @@ class Server:
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((socket.gethostname(), int(sys.argv[1])))
-        print(socket.gethostname())
+        victory = socket.gethostname()
+        print(socket.gethostbyname(victory))
         s.listen(1000)
 
         while True:
