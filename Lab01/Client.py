@@ -19,18 +19,17 @@ python client.py 128.111.52.245 5000
 
 
 import socket
-import pickle
 import sys
 
 
-justin = '192.168.153.1'
-port = 1234
+HOST = '192.168.153.1'
+PORT = 1234
 class Client:
 
     HEADERSIZE = 10
     server = (sys.argv[1], int(sys.argv[2]))
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(justin, port)
+    s.bind((HOST, PORT))
     #s.connect(((sys.argv[1]), int(sys.argv[2])))  #connect (ipadress, port)
     message = input("->")
     while True:
