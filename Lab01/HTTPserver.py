@@ -1,10 +1,11 @@
+import cgi
 import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 newgame = ['Rock', 'Paper', 'Scissors']
-class echoHandler(BaseHTTPRequestHandler):
+class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path.endswith('/'):
+        if self.path.endswith('/newgame/'):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
@@ -23,23 +24,36 @@ class echoHandler(BaseHTTPRequestHandler):
 
 
 
-            # output += ''
-            # output += '<html><body>'
-            # output += '<h1> Enter your play</h1>'
-            # output += '<form method="POST" enctype="multipart/form-data" action=/newgame/new">'
-            # output += '<input name="move" type="text" placeholder="Enter move">'
-            # output += '<input type="submit" value="add">'
-            # output += '</form>'
-            # output += '</body>'
+            output += ''
+            output += '<html><body>'
+            output += '<h1> Enter your play</h1>'
+            output += '<form method="POST" enctype="multipart/form-data" action="/newgame/new">'
+            output += '<input name="move" type="text" placeholder="Enter move">'
+            output += '<input type="submit" value="add">'
+            output += '</form>'
+            output += '</body>'
 
             self.wfile.write(output.encode())
 
-
+    def do_POST(self):
+        if self.path.endswith('/new'):
+            ctype, pdict = cgi.parse_header(self.headers.get('content-type'))
+            pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
+            content_len = int(self.headers.get('Content-length'))
+            pdict['CONTENT-LENGTH'] = content_len
+            if ctype == 'multipart/form-data':
+                fields = cgi.parse_multipart(self.rfile, pdict)
+                new_task = fields.get('move')
+                newgame.append(new_task[0])
+            self.send_response(301)
+            self.send_header('content-type', 'text/html')
+            self.send_header('Location', '/newgame/')
+            self.end_headers()
 
 
 def main():
     PORT = 8000
-    server = HTTPServer((sys.argv[1], PORT), echoHandler)
+    server = HTTPServer((sys.argv[1], PORT), requestHandler)
     print('Server running on port %s' % PORT)
     server.serve_forever()
 

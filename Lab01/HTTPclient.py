@@ -35,11 +35,11 @@ class Client:
     message = input("->")
     while True:
         s.sendto(message.encode('utf-8'), server)
-        data, addr = s.recvfrom(1234)
+        data, addr = s.recvfrom(port)
         data = data.decode('utf-8')
         print("received from server: " + data)
         message = input("->")
-        #s.sendto("hey man", blake,port)
+        s.sendto("hey man", justin,port)
     sys.exit
 
     print(full_msg)
