@@ -22,15 +22,16 @@ import socket
 import sys
 
 
-justin = '192.168.153.1'
-port = 1234
+justin = sys.argv[1]
+port = int(sys.argv[2])
+portClient = int(sys.argv[3])
 class Client:
 
     HEADERSIZE = 10
     server = (sys.argv[1], int(sys.argv[2]))
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((justin, port))
-    #s.connect(((sys.argv[1]), int(sys.argv[2])))  #connect (ipadress, port)
+    s.bind((justin, portClient))
+    s.connect(((sys.argv[1]), int(sys.argv[2])))  #connect (ipadress, port)
     message = input("->")
     while True:
         s.sendto(message.encode('utf-8'), server)
