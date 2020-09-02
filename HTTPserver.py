@@ -32,7 +32,6 @@ class echoHandler(BaseHTTPRequestHandler):
             output += '</body>'
 
             self.wfile.write(output.encode())
-            print("testing this update")
 
         # self.send_response(200)
         # self.send_header('content-type', 'text/html')
