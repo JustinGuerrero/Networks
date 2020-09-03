@@ -5,7 +5,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 newgame = ['Rock', 'Paper', 'Scissors']
 class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path.endswith('/newgame/'):
+        if self.path.endswith(''):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
@@ -27,7 +27,7 @@ class requestHandler(BaseHTTPRequestHandler):
             output += ''
             output += '<html><body>'
             output += '<h1> Enter your play</h1>'
-            output += '<form method="POST" enctype="multipart/form-data" action="/newgame/new">'
+            output += '<form method="POST" enctype="multipart/form-data" action="/newgame">'
             output += '<input name="move" type="text" placeholder="Enter move">'
             output += '<input type="submit" value="add">'
             output += '</form>'
@@ -36,7 +36,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.wfile.write(output.encode())
 
     def do_POST(self):
-        if self.path.endswith('/new'):
+        if self.path.endswith(''):
             ctype, pdict = cgi.parse_header(self.headers.get('content-type'))
             pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
             content_len = int(self.headers.get('Content-length'))
@@ -47,7 +47,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 newgame.append(new_task[0])
             self.send_response(301)
             self.send_header('content-type', 'text/html')
-            self.send_header('Location', '/newgame/')
+            self.send_header('Location', '/newgame')
             self.end_headers()
 
 

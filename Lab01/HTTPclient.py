@@ -29,16 +29,18 @@ class Client:
     HEADERSIZE = 10
     server = (sys.argv[1], int(sys.argv[2]))
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #s.bind((justin, port))
+    s.bind(('justin', port))
     s.connect(((sys.argv[1]), port))  #connect (ipadress, port)
     message = input("->")
-    s.sendto(message.encode('utf-8'), server)
-    data, addr = s.recvfrom(port)
-    data = data.decode('utf-8')
-    print("received from server: " + data)
-    message = input("->")
+    while True:
+        s.sendto(message.encode('utf-8'), server)
+        data, addr = s.recvfrom(port)
+        data = data.decode('utf-8')
+        print("received from server: " + data)
+        message = input("->")
     sys.exit
 
+    print(full_msg)
 
 
 
