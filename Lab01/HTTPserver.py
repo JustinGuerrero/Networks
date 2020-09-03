@@ -1,7 +1,11 @@
 import cgi
 import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
+import urllib.request
 
+
+file = open("game.txt", "w")
+HOST = sys.argv[1]
 newgame = ['Rock', 'Paper', 'Scissors']
 class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -45,6 +49,8 @@ class requestHandler(BaseHTTPRequestHandler):
                 fields = cgi.parse_multipart(self.rfile, pdict)
                 new_task = fields.get('move')
                 newgame.append(new_task[0])
+                file.write(new_task[0])
+                file.close()
             self.send_response(301)
             self.send_header('content-type', 'text/html')
             self.send_header('Location', '/newgame')
@@ -53,7 +59,7 @@ class requestHandler(BaseHTTPRequestHandler):
 
 def main():
     PORT = 8000
-    server = HTTPServer((sys.argv[1], PORT), requestHandler)
+    server = HTTPServer((HOST, PORT), requestHandler)
     print('Server running on port %s' % PORT)
     server.serve_forever()
 
