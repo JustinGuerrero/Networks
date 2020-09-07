@@ -6,7 +6,6 @@ DUE 9/11/2020
 """
 import http
 
-import files as files
 
 """
 CLIENT REQUIREMENTS
@@ -21,6 +20,7 @@ python client.py 128.111.52.245 5000
 import socket
 import pickle
 import sys
+import time
 
 import requests
 import secrets
@@ -53,42 +53,37 @@ import urllib3
 import socket
 import http.client
 import pickle
-yat= "GET"
+yat= "ROCK"
+PLAYERNUMBER = 1234
+play = 1
 
-PLAYS = {
-"rock rock" : "tie" ,
+print("my player number is :", PLAYERNUMBER)
 
-"rock paper" : "1",
-
-"rock scissors" : "1",
-
-"paper rock" : "1",
-
-"paper paper" : "tie",
-
-"paper scissors" : "2" ,
-
-"scissors rock" : "2",
-
-"scissors paper" :"1",
-
-"scissors scissors" : "tie"
-}
-
-with open('win_dic', 'wb') as handle:
-    pickle.dump(PLAYS, handle)
+while(play == 1):
 
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((sys.argv[1], int(sys.argv[2])))
-s.send(bytes(yat, "utf-8"))
-data = s.recv(1024)
-print(data)
-s.close()
+    print("Welcome to ROCK, PAPER, SCISSORS!")
+    yat = input("OPTIONS: ROCK, PAPER, SCISSORS GETSCORE QUIT RESET Please enter your play: ")
+    if(yat =="QUIT"):
+        play = 0
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((sys.argv[1], int(sys.argv[2])))
+    s.send(bytes(yat, "utf-8"))
+    data = s.recv(10)
+    if (data == b'0'):
+        PLAYERNUMBER = 0
+    elif(data == b'1'):
+        PLAYERNUMBER = 1
+
+    print("MY PLAYER NUMBER IS: ", PLAYERNUMBER)
+    print(data)
+    s.close()
+    time.sleep(60)
 
 
 
-print(PLAYS)
+# print(PLAYS)
 
 
 

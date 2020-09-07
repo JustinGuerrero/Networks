@@ -14,14 +14,21 @@ import socket
 with open("win_dic", 'rb') as handle:
     b = pickle.loads(handle.read())
 
-    print(b["rock rock"])
+with open("Player_Nos", 'rb') as zandle:
+    c = pickle.loads(zandle.read())
 
+with open("Player_2Nos", 'rb') as xandle:
+    g = pickle.loads(xandle.read())
+print(c["ONE"])
 
-BUFFER_SIZE =1024
+print(g["TWO"])
+BUFFER_SIZE = 1024
+#
+
 while (1):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind ((sys.argv[1], int(sys.argv[2])))
-    s.listen(1)
+    s.listen(2)
 
     print("listening at", s.getsockname())
     conn, addr = s.accept()
@@ -32,8 +39,24 @@ while (1):
     f.write(data2)
     f.close()
     data2= data2 + " WRITTEN TO GAME"
+    print(c["ONE"], g["TWO"])
+    if (c["ONE"] == "0A"):
+        playerNos = {
+            "ONE": "0"
+        }
+        with open("Player_Nos", "wb") as zapalm:
+            pickle.dump(playerNos, zapalm)
+            conn.send(b'0')
 
-    print(data2)
+    if (g["TWO"] == "1A"):
+        playerNos2 = {
+            "TWO": "1"
+        }
+        with open("Player_2Nos", "wb") as xapalm:
+            pickle.dump(playerNos2, xapalm)
+            conn.send(b'1')
+
+
 
 
 
