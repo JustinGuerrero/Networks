@@ -4,7 +4,7 @@ BLAKE STANGER & JUSTIN GUERRERO
 CSCI 466 DR. MIKE WITTIE
 DUE 9/11/2020
 """
-
+import requests
 
 """
 CLIENT REQUIREMENTS
@@ -33,6 +33,7 @@ class Client:
     s.connect(((sys.argv[1]), port))  #connect (ipadress, port)
     message = input("->")
     while True:
+        response = requests.post(justin, data)
         s.sendto(message.encode('utf-8'), server)
         data, addr = s.recvfrom(port)
         data = data.decode('utf-8')
