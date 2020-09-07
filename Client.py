@@ -6,6 +6,8 @@ DUE 9/11/2020
 """
 import http
 
+import files as files
+
 """
 CLIENT REQUIREMENTS
 SEND A  R P OR S MESSAGE W/ UNIQUE IDENTIFICATION.
@@ -22,17 +24,82 @@ import sys
 
 import requests
 import secrets
-import http.client, urllib.parse
+import http.client, urllib.parse, codecs
+import http.client
+import sys
+"""
+PROGRAMMING ASSIGNMENT 1
+BLAKE STANGER & JUSTIN GUERRERO
+CSCI 466 DR. MIKE WITTIE
+DUE 9/11/2020
+"""
 
-string = "http://"+ sys.argv[1] + ":" + sys.argv[2]
-print(string)
+
+"""
+CLIENT REQUIREMENTS
+SEND A  R P OR S MESSAGE W/ UNIQUE IDENTIFICATION.
+CHECK RESULT OF PLAY- DISPLAY TO USER. (W OR L)
+CHECK W/L RECORD AND DISPLAY
+RESET- CLEAR W/L RECORD.
+
+needs to accept ip address and port of server process
+python client.py 128.111.52.245 5000
+"""
+
+
+import socket
+import sys
+import urllib3
+
+
+justin = sys.argv[1]
+port = int(sys.argv[2])
+string = "http://"+justin + ":" + sys.argv[2]
+
+r = requests.get(string)
+
+print(r.status_code)
+
+print(r.headers)
+
+print(r.url)
 
 
 
-conn = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-conn.request("GET", string)
-r1= conn.getresponse()
-print(r1.status, r1.reason)
+
+
+
+# class Client:
+#
+#     h1= http.client.HTTPConnection(justin, port)
+#
+#
+#     HEADERSIZE = 10
+#     server = (sys.argv[1], int(sys.argv[2]))
+#     # s.bind((justin, port))
+#     s.connect(((sys.argv[1]), port))  #connect (ipadress, port)
+#     message = input("->")
+#     while True:
+#         s.sendto(message.encode('utf-8'), server)
+#         data, addr = s.recvfrom(port)
+#         data = data.decode('utf-8')
+#         print("received from server: " + data)
+#         message = input("->")
+#     sys.exit
+#
+#     print(full_msg)
+
+
+
+
+
+
+
+# conn = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+# conn.request("GET", string)
+# r1= conn.getresponse()
+# print(r1.status, r1.reason)
+# print ("fuck")
 
 
 
@@ -90,6 +157,6 @@ print(r1.status, r1.reason)
 
 
 
-
+#cite your sources: https://stackoverflow.com/questions/8107177/using-python-requests-library-to-post-a-text-file
 
 
