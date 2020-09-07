@@ -12,8 +12,6 @@ class TCPServer:
         self.host = sys.argv[1]  # address for our server
         self.port = int(sys.argv[2]) # port for our server
 
-
-
     def start(self):
         # create a socket object
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -37,13 +35,13 @@ class TCPServer:
             response = self.handle_request(data)
 
             # send back the data to client
-            conn.sendall(data)
+            conn.sendall(response)
 
             # close the connection
             conn.close()
 
-def handle_request(self, data):
-
+    def handle_request(self, data):
+        return data
 
 
 class HTTPServer(TCPServer):
