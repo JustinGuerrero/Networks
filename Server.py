@@ -2,6 +2,7 @@ import cgi
 import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import urllib.request
+import os
 
 
 # main.py
@@ -45,6 +46,11 @@ class TCPServer:
 
 
 class HTTPServer(TCPServer):
+
+    headers = {
+        'Server': 'CrudeServer',
+        'Content-Type': 'text/html',
+    }
 
     status_codes = {
         200: 'OK',
@@ -104,19 +110,10 @@ class HTTPServer(TCPServer):
             headers += "%s: %s\r\n" % (h, self.headers[h])
         return headers
 
-    def handle_request(self, data):
-
-        request = HTTPRequest(data)
-
-        handler = getattr(self, 'handle_%s' % request.method)
-
-        response = handler(request)
-
-        return response
-
     def handle_GET(self, request):
-        #write soon
-        pass
+        filename = request.uri.strip('/') #pull that slash out of the uri
+
+        if os.path.exists(filename)
 
     def handle_POST(self, request):
         #write you soon too
