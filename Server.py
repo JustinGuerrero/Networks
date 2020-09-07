@@ -113,7 +113,26 @@ class HTTPServer(TCPServer):
     def handle_GET(self, request):
         filename = request.uri.strip('/') #pull that slash out of the uri
 
-        if os.path.exists(filename)
+        if os.path.exists(filename):
+            response_line = self.response_line(200)
+
+            response_header = self.response_headers()
+
+            with open(filename) as f:
+                response_body = f.read()
+        else:
+            response_line = self.response_line(404)
+            response_headers = self.response_headers()
+            response_body = "<h1>404 Not Found</h1>"
+
+        blank_line = "\r\n"
+
+        return "%s%s%s%s" % (
+            response_line,
+            response_headers,
+            blank_line,
+            response_body
+        )
 
     def handle_POST(self, request):
         #write you soon too
