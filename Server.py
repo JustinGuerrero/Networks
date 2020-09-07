@@ -1,186 +1,220 @@
 import cgi
 import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
+import http.server
+
+
 import urllib.request
 import os
 
-
 # main.py
+import pickle
 import socket
 
-class TCPServer:
-    def __init__(self):
-        self.host = sys.argv[1]  # address for our server
-        self.port = int(sys.argv[2]) # port for our server
+with open("win_dic", 'rb') as handle:
+    b = pickle.loads(handle.read())
 
-    def start(self):
-        # create a socket object
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        # bind the socket object to the address and port
-        s.bind((self.host, self.port))
-        # start listening for connections
-        s.listen(5)
-
-        print("Listening at", s.getsockname())
-
-        while True:
-            # accept any new connection
-            conn, addr = s.accept()
-
-            print("Connected by", addr)
-
-            # read the data sent by the client (1024 bytes)
-            data = conn.recv(1024)
-
-            response = self.handle_request(data)
-
-            # send back the data to client
-            conn.sendall(response)
-
-            # close the connection
-            conn.close()
-
-    def handle_request(self, data):
-        return data
+    print(b["rock rock"])
 
 
-class HTTPServer(TCPServer):
+BUFFER_SIZE =1024
+while (1):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind ((sys.argv[1], int(sys.argv[2])))
+    s.listen(1)
 
-    headers = {
-        'Server': 'CrudeServer',
-        'Content-Type': 'text/html',
-    }
+    print("listening at", s.getsockname())
+    conn, addr = s.accept()
+    data = conn.recv(BUFFER_SIZE)
 
-    status_codes = {
-        200: 'OK',
-        404: 'Not Found',
-        501: 'Not Implemented',
-    }
+    f= open("game.txt", "a")
+    data2 = data.decode('utf-8')
+    f.write(data2)
+    f.close()
+    data2= data2 + " WRITTEN TO GAME"
 
-    def handle_request(self, data):
-        # create an instance of `HTTPRequest`
-        request = HTTPRequest(data)
+    print(data2)
 
-        # now, look at the request method and call the
-        # appropriate handler
-        try:
-            handler = getattr(self, 'handle_%s' % request.method)
-        except AttributeError:
-            handler = self.HTTP_501_handler
 
-        response = handler(request)
 
-        return response
+    conn.send(data) #echo
 
-    def HTTP_501_handler(self, request):
-        response_line = self.response_line(status_code=501)
-
-        response_headers = self.response_headers()
-
-        blank_line = "\r\n"
-
-        response_body = "<h1>501 Not Implemented</h1>"
-
-        return "%s%s%s%s" % (
-            response_line,
-            response_headers,
-            blank_line,
-            response_body
-        )
-
-    def response_line(self, status_code):
-        """Returns response line"""
-        reason = self.status_codes[status_code]
-        return "HTTP/1.1 %s %s\r\n" % (status_code, reason)
-
-    def response_headers(self, extra_headers=None):
-        """Returns headers
-        The `extra_headers` can be a dict for sending
-        extra headers for the current response
-        """
-        headers_copy = self.headers.copy()  # make a local copy of headers
-
-        if extra_headers:
-            headers_copy.update(extra_headers)
-
-        headers = ""
-
-        for h in self.headers:
-            headers += "%s: %s\r\n" % (h, self.headers[h])
-        return headers
-
-    def handle_GET(self, request):
-        filename = request.uri.strip('/') #pull that slash out of the uri
-
-        if os.path.exists(filename):
-            response_line = self.response_line(200)
-
-            response_header = self.response_headers()
-
-            with open(filename) as f:
-                response_body = f.read()
-        else:
-            response_line = self.response_line(404)
-            response_headers = self.response_headers()
-            response_body = "<h1>404 Not Found</h1>"
-
-        blank_line = "\r\n"
-
-        return "%s%s%s%s" % (
-            response_line,
-            response_headers,
-            blank_line,
-            response_body
-        )
-
-    def handle_POST(self, request):
-        #write you soon too
-        pass
-
-class HTTPRequest:
-    def __init__(self, data):
-        self.method = None
-        self.uri = None
-        self.http_version = '1.1'  # default to HTTP/1.1 if request doesn't provide a version
-        self.headers = {}  # a dictionary for headers
-
-        # call self.parse method to parse the request data
-        self.parse(data)
-
-    def parse(self, data):
-        lines= data.split('\r\n')
-
-        requests_line = lines[0]
-        self.parse_request_line(requests_line)
-
-    def parse_request_line(self, request_line):
-        words = request_line.split(' ')
-        self.method = words[0]
-        self.uri = words[1]
-
-        if len(words) > 2:
-            self.http_version = words[2]
+    conn.close()
 
 
 
 
-
-if __name__ == '__main__':
-    server = HTTPServer()
-    server.start()
+# if __name__ == '__main__':
+#
 
 
 
-#CITE YOUR SOURCES
+
+    #CITE YOUR SOURCES
 
 # I leaned heavily on this guys guide to building an HTTP server. He walked me through everything and I got most of the code here from him.
 # I modifed things to work on the ROCK, PAPER, SCICCORS methods and needs for class.
 #https://bhch.github.io/posts/2017/11/writing-an-http-server-from-scratch/
-
-
-
-
+#
+#
+# class TCPServer:
+#
+#     def __init__(self):
+#         self.host = sys.argv[1]  # address for our server
+#         self.port = int(sys.argv[2]) # port for our server
+#
+#     def start(self):
+#         # create a socket object
+#         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+#         # bind the socket object to the address and port
+#         s.bind((self.host, self.port))
+#         # start listening for connections
+#         s.listen(5)
+#
+#
+#         print("Listening at", s.getsockname())
+#
+#         while True:
+#             # accept any new connection
+#             conn, addr = s.accept()
+#
+#             print("Connected by", addr)
+#
+#             # read the data sent by the client (1024 bytes)
+#             data = conn.recv(1024)
+#
+#             response = self.handle_request(data)
+#
+#             # send back the data to client
+#             conn.sendall(response)
+#
+#             # close the connection
+#             #conn.close()
+#
+#     def handle_request(self, data):
+#         return data
+#
+#
+# class HTTPServer(TCPServer):
+#
+#     headers = {
+#         'Server': 'CrudeServer',
+#         'Content-Type': 'text/html',
+#     }
+#
+#     status_codes = {
+#         200: 'OK',
+#         404: 'Not Found',
+#         501: 'Not Implemented',
+#     }
+#
+#     def handle_request(self, data):
+#         # create an instance of `HTTPRequest`
+#         request = HTTPRequest(data)
+#
+#         # now, look at the request method and call the
+#         # appropriate handler
+#         try:
+#             handler = getattr(self, 'handle_%s' % request.method)
+#         except AttributeError:
+#             handler = self.HTTP_501_handler
+#
+#         response = handler(request)
+#
+#         return response
+#
+#     def HTTP_501_handler(self, request):
+#         response_line = self.response_line(status_code=501)
+#
+#         response_headers = self.response_headers()
+#
+#         blank_line = "\r\n"
+#
+#         response_body = "<h1>501 Not Implemented</h1>"
+#
+#         return "%s%s%s%s" % (
+#             response_line,
+#             response_headers,
+#             blank_line,
+#             response_body
+#         )
+#
+#     def response_line(self, status_code):
+#         """Returns response line"""
+#         reason = self.status_codes[status_code]
+#         return "HTTP/1.1 %s %s\r\n" % (status_code, reason)
+#
+#     def response_headers(self, extra_headers=None):
+#         """Returns headers
+#         The `extra_headers` can be a dict for sending
+#         extra headers for the current response
+#         """
+#         headers_copy = self.headers.copy()  # make a local copy of headers
+#
+#         if extra_headers:
+#             headers_copy.update(extra_headers)
+#
+#         headers = ""
+#
+#         for h in self.headers:
+#             headers += "%s: %s\r\n" % (h, self.headers[h])
+#         return headers
+#
+#     def handle_GET(self, request):
+#         filename = request.uri.strip('/') #pull that slash out of the uri
+#
+#         if os.path.exists(filename):
+#             response_line = self.response_line(200)
+#
+#             response_header = self.response_headers()
+#
+#             with open(filename) as f:
+#                 response_body = f.read()
+#         else:
+#             response_line = self.response_line(404)
+#             response_headers = self.response_headers()
+#             response_body = "<h1>404 Not Found</h1>"
+#
+#         blank_line = "\r\n"
+#
+#         return "%s%s%s%s" % (
+#             response_line,
+#             response_headers,
+#             blank_line,
+#             response_body
+#         )
+#
+#     def handle_POST(self, request):
+#         #write you soon too
+#         pass
+#
+# class HTTPRequest:
+#     def __init__(self, data):
+#         self.method = None
+#         self.uri = None
+#         self.http_version = '1.1'  # default to HTTP/1.1 if request doesn't provide a version
+#         self.headers = {}  # a dictionary for headers
+#
+#         # call self.parse method to parse the request data
+#         self.parse(data)
+#
+#     def parse(self, data):
+#         lines = data.split('\r\n')
+#
+#         requests_line = lines[0]
+#         self.parse_request_line(requests_line)
+#
+#     def parse_request_line(self, request_line):
+#         words = request_line.split(' ')
+#         self.method = words[0]
+#         self.uri = words[1]
+#
+#         if len(words) > 2:
+#             self.http_version = words[2]
+#
+#
+#
 
 
 

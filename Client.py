@@ -50,19 +50,62 @@ python client.py 128.111.52.245 5000
 import socket
 import sys
 import urllib3
+import socket
+import http.client
+import pickle
+yat= "GET"
+
+PLAYS = {
+"rock rock" : "tie" ,
+
+"rock paper" : "1",
+
+"rock scissors" : "1",
+
+"paper rock" : "1",
+
+"paper paper" : "tie",
+
+"paper scissors" : "2" ,
+
+"scissors rock" : "2",
+
+"scissors paper" :"1",
+
+"scissors scissors" : "tie"
+}
+
+with open('win_dic', 'wb') as handle:
+    pickle.dump(PLAYS, handle)
 
 
-justin = sys.argv[1]
-port = int(sys.argv[2])
-string = "http://"+justin + ":" + sys.argv[2]
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((sys.argv[1], int(sys.argv[2])))
+s.send(bytes(yat, "utf-8"))
+data = s.recv(1024)
+print(data)
+s.close()
 
-r = requests.get(string)
 
-print(r.status_code)
 
-print(r.headers)
+print(PLAYS)
 
-print(r.url)
+
+
+# justin = sys.argv[1]
+# port = int(sys.argv[2])
+# string = "http://"+justin + ":" + sys.argv[2]
+#
+# r = requests.get(string)
+#
+# print(r.status_code)
+#
+# print(r.headers)
+#
+# print(r.url)
+
+
+
 
 
 
