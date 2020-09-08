@@ -54,6 +54,10 @@ import socket
 import http.client
 import pickle
 
+PLAYERNUMBER = "UNASSIGNED"
+
+
+
 
 x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 x.connect((sys.argv[1], int(sys.argv[2])))
@@ -72,11 +76,18 @@ for x in range(3):
     print(data)
 
 
+
 x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 x.connect((sys.argv[1], int(sys.argv[2])))
 x.send(bytes("OPTIONS GAMEFILE \n" + " ", "utf-8"))
 data = x.recv(1024)
 x.close()
+if(data==b'1'):
+    PLAYERNUMBER = "1"
+if(data==b'0'):
+    PLAYERNUMBER = "0"
+print(PLAYERNUMBER)
+
 print(data)
 
 
