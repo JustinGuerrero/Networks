@@ -53,45 +53,86 @@ import urllib3
 import socket
 import http.client
 import pickle
-yat= "POST "
-PLAYERNUMBER = 1234
-play = 1
-
-print("my player number is :", PLAYERNUMBER)
-
-while(play == 1):
 
 
-    print("Welcome to ROCK, PAPER, SCISSORS!")
-    yat = yat + input("OPTIONS: ROCK, PAPER, SCISSORS GETSCORE QUIT RESET Please enter your play: ")
-    if(yat =="QUIT"):
-        play = 0
+x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+x.connect((sys.argv[1], int(sys.argv[2])))
+x.send(bytes("GET GAMEFILE \n" + " ", "utf-8"))
+data = x.recv(1024)
+x.close()
+print(data)
 
-    if(yat == "POST RESET"):
-        yat = "POST RESET " + PLAYERNUMBER
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((sys.argv[1], int(sys.argv[2])))
-        s.send(bytes(yat + " ", "utf-8"))
-        data = s.recv(1024)
-        print(data)
-        continue
-
+for x in range(3):
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((sys.argv[1], int(sys.argv[2])))
-    if(PLAYERNUMBER ==1):
-        s.send(bytes(yat + " \n", "utf-8"))
-    s.send(bytes(yat+" ", "utf-8"))
+    s.send(bytes("POST SCISSORS \n" + " ", "utf-8"))
     data = s.recv(1024)
-    if (data == b'0'):
-        PLAYERNUMBER = 0
-    elif(data == b'1'):
-        PLAYERNUMBER = 1
-
-    print("MY PLAYER NUMBER IS: ", PLAYERNUMBER)
-    print(data)
     s.close()
-    time.sleep(10)
+    print(data)
+
+
+x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+x.connect((sys.argv[1], int(sys.argv[2])))
+x.send(bytes("OPTIONS GAMEFILE \n" + " ", "utf-8"))
+data = x.recv(1024)
+x.close()
+print(data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#CLIENT OLD ATTEMPT
+# yat= ""
+# PLAYERNUMBER = 1234
+# play = 1
+#
+# print("my player number is :", PLAYERNUMBER)
+#
+# while(play == 1):
+#
+#
+#     print("Welcome to ROCK, PAPER, SCISSORS!")
+#     yat = yat + input("OPTIONS: ROCK, PAPER, SCISSORS GETSCORE QUIT RESET Please enter your play: ")
+#     if(yat =="QUIT"):
+#         play = 0
+#
+#     if(yat == "POST RESET"):
+#         yat = "POST RESET " + PLAYERNUMBER
+#         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         s.connect((sys.argv[1], int(sys.argv[2])))
+#         s.send(bytes(yat + " ", "utf-8"))
+#         data = s.recv(1024)
+#         print(data)
+#         continue
+#
+#
+#     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     s.connect((sys.argv[1], int(sys.argv[2])))
+#     if(PLAYERNUMBER ==1):
+#         s.send(bytes(yat + " \n", "utf-8"))
+#     s.send(bytes(yat+" ", "utf-8"))
+#     data = s.recv(1024)
+#     if (data == b'0'):
+#         PLAYERNUMBER = 0
+#     elif(data == b'1'):
+#         PLAYERNUMBER = 1
+#
+#     print("MY PLAYER NUMBER IS: ", PLAYERNUMBER)
+#     print(data)
+#     s.close()
+#     time.sleep(10)
 
 
 
@@ -149,7 +190,7 @@ while(play == 1):
 # conn.request("GET", string)
 # r1= conn.getresponse()
 # print(r1.status, r1.reason)
-# print ("fuck")
+# print ("f")
 
 
 

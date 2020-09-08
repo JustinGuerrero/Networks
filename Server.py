@@ -2,96 +2,193 @@ import cgi
 import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import http.server
-
-
 import urllib.request
 import os
-
 # main.py
 import pickle
 import socket
+from socket import *
 
-with open("win_dic", 'rb') as handle:
-    b = pickle.loads(handle.read())
 
-with open("Player_Nos", 'rb') as zandle:
-    c = pickle.loads(zandle.read())
+def createServer():
+    serversocket = socket(AF_INET, SOCK_STREAM)
+    try:
+        serversocket.bind((sys.argv[1], int(sys.argv[2])))
+        serversocket.listen(5)
+        while(1):
+            (clientsocket, address) = serversocket.accept()
+            rd= clientsocket.recv(5000).decode()
+            pieces = rd.split(" ")
+            print(pieces)
+            print(pieces[0])
 
-with open("Player_2Nos", 'rb') as xandle:
-    g = pickle.loads(xandle.read())
+            if (pieces[0] == "POST"):
+                    f = open("game.txt", "a")
+                    data2 = pieces[1]
+                    f.write(data2+" ")
+                    f.close()
+                    data2 = "202 ACCEPTED " +data2 + " WRITTEN TO GAME"
+                    print(data2)
+                    clientsocket.sendall(data2.encode())
+                    clientsocket.shutdown(SHUT_WR)
 
-print(c["ONE"])
+            elif(pieces[0] == "GET"):
+                    print("Hit GET")
+                    with open("game.txt", "r") as gamefile:
+                        data = "200 OK"
+                        data += gamefile.read()
+                        print("GAMEFILE DATA:",data)
 
-print(g["TWO"])
-BUFFER_SIZE = 1024
+
+                    clientsocket.sendall(data.encode())
+                    clientsocket.shutdown(SHUT_WR)
+
+            elif (pieces[0] == "OPTIONS"):
+                print("Hit OPTIONS")
+                with open("Player_Nos.txt", "r") as playerone_file:
+                    dataoptions = playerone_file.read()
+                    print("Player DATA:", dataoptions)
+                    playerone_file.close()
+                    if(dataoptions == "0N"):
+                        with open("Player_Nos.txt", "w") as playerone_file_write:
+                            playerone_file_write.write("0N")
+                            playerone_file_write.close()
+                            playerone_number = "0"
+
+
+                            clientsocket.sendall(playerone_number.encode())
+                            clientsocket.shutdown(SHUT_WR)
+                            continue
+
+
+                    #if(data==)
+
+                clientsocket.sendall(data.encode())
+                clientsocket.shutdown(SHUT_WR)
+
+            else:
+                data = "501 NOT IMPLEMENTED"
+                clientsocket.sendall(data.encode())
+                clientsocket.shutdown(SHUT_WR)
+    except KeyboardInterrupt:
+            print("\nShutting down...\n");
+    # except Exception as exc:
+    #         print("Error:\n");
+    #         print(exc)
+    #
+    #  serversocket.close()
+
+
+
+
+# print('Access http://localhost:9000')
+createServer()
+
+
+
+
+
+
+
+# class Server(BaseHTTPRequestHandler):
+#
+#     def do_GET(self):
+#         if self.path == '/':
+#             self.path = "/index.html"
+#         try:
+#             file_to_open = open(self.path[1:]).read()
+#             self.send_response(200)
+#         except:
+#             file_to_open = "File not found"
+#             self.send_response(404)
+#         self.end_headers()
+#         self.wfile.write(bytes(file_to_open, 'utf-8'))
+#
+#     httpd = HTTPServer((sys.argv[1], int(sys.argv[2])), BaseHTTPRequestHandler)
+#     print(httpd.server_address)
+#     httpd.serve_forever()
 #
 
-while (1):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind ((sys.argv[1], int(sys.argv[2])))
-    s.listen(2)
-
-    print("listening at", s.getsockname())
-    conn, addr = s.accept()
-    data = conn.recv(BUFFER_SIZE)
-
-    print("DATA IS: ", data)
-
-    f= open("game.txt", "a")
-    data2 = data.decode('utf-8')
-    data3 = data2.split()
-    print(data3[1])
-    f.write(data3[1])
-    f.close()
-    data4 = data3[1] + " WRITTEN TO GAME"
-    print(data4)
-
-    with open("Player_Nos", 'rb') as zandle:
-        c = pickle.loads(zandle.read())
-
-    with open("Player_2Nos", 'rb') as xandle:
-        g = pickle.loads(xandle.read())
-    print(c["ONE"], g["TWO"])
-    if (c["ONE"] == "0A"):
-        playerNos = {
-            "ONE": "0",
-            "RESET": "N"
-        }
-        with open("Player_Nos", "wb") as zapalm:
-            pickle.dump(playerNos, zapalm)
-            conn.send(b'0')
-
-    elif (g["TWO"] == "1A"):
-        playerNos2 = {
-            "TWO": "1",
-            "RESET": "N"
-        }
-        with open("Player_2Nos", "wb") as xapalm:
-            pickle.dump(playerNos2, xapalm)
-            conn.send(b'1')
-
-
-
-
-
-    conn.send(data) #echo
-
-    conn.close()
-
-
+# SERVER OLD ATTEMPT
+#
+# with open("win_dic", 'rb') as handle:
+#     b = pickle.loads(handle.read())
+#
+# with open("Player_Nos", 'rb') as zandle:
+#     c = pickle.loads(zandle.read())
+#
+# with open("Player_2Nos", 'rb') as xandle:
+#     g = pickle.loads(xandle.read())
+#
+# print(c["ONE"])
+#
+# print(g["TWO"])
+# BUFFER_SIZE = 10
+# #
+#
+# while (1):
+#     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     s.bind ((sys.argv[1], int(sys.argv[2])))
+#     s.listen(2)
+#
+#     print("listening at", s.getsockname())
+#     conn, addr = s.accept()
+#     data = conn.recv(BUFFER_SIZE)
+#
+#     print("DATA IS: ", data)
+#
+#     f= open("game.txt", "a")
+#     data2 = data.decode('utf-8')
+#     print(data2)
+#     f.write(data2)
+#     f.close()
+#     data2 = data2 + " WRITTEN TO GAME"
+#     print(data2)
+#
+#     with open("Player_Nos", 'rb') as zandle:
+#         c = pickle.loads(zandle.read())
+#
+#     with open("Player_2Nos", 'rb') as xandle:
+#         g = pickle.loads(xandle.read())
+#     print(c["ONE"], g["TWO"])
+#     if (c["ONE"] == "0A"):
+#         playerNos = {
+#             "ONE": "0",
+#             "RESET": "N"
+#         }
+#         with open("Player_Nos", "wb") as zapalm:
+#             pickle.dump(playerNos, zapalm)
+#             conn.send(b'0')
+#
+#     elif (g["TWO"] == "1A"):
+#         playerNos2 = {
+#             "TWO": "1",
+#             "RESET": "N"
+#         }
+#         with open("Player_2Nos", "wb") as xapalm:
+#             pickle.dump(playerNos2, xapalm)
+#             conn.send(b'1')
+#
+#
+#
+#
+#
+#     conn.send(data) #echo
+#     data = " "
+#     conn.close()
+#
+# END OLD ATTEMPT.
 
 
 # if __name__ == '__main__':
 #
 
 
-
-
-    #CITE YOUR SOURCES
+# CITE YOUR SOURCES
 
 # I leaned heavily on this guys guide to building an HTTP server. He walked me through everything and I got most of the code here from him.
 # I modifed things to work on the ROCK, PAPER, SCICCORS methods and needs for class.
-#https://bhch.github.io/posts/2017/11/writing-an-http-server-from-scratch/
+# https://bhch.github.io/posts/2017/11/writing-an-http-server-from-scratch/
 #
 #
 # class TCPServer:
@@ -252,12 +349,6 @@ while (1):
 #
 #
 #
-
-
-
-
-
-
 
 
 #
