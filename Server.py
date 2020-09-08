@@ -14,26 +14,63 @@ import socket
 with open("win_dic", 'rb') as handle:
     b = pickle.loads(handle.read())
 
-    print(b["rock rock"])
+with open("Player_Nos", 'rb') as zandle:
+    c = pickle.loads(zandle.read())
 
+with open("Player_2Nos", 'rb') as xandle:
+    g = pickle.loads(xandle.read())
 
-BUFFER_SIZE =1024
+print(c["ONE"])
+
+print(g["TWO"])
+BUFFER_SIZE = 1024
+#
+
 while (1):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind ((sys.argv[1], int(sys.argv[2])))
-    s.listen(1)
+    s.listen(2)
 
     print("listening at", s.getsockname())
     conn, addr = s.accept()
     data = conn.recv(BUFFER_SIZE)
 
+    print("DATA IS: ", data)
+
     f= open("game.txt", "a")
     data2 = data.decode('utf-8')
-    f.write(data2)
+    data3 = data2.split()
+    print(data3[1])
+    f.write(data3[1])
     f.close()
-    data2= data2 + " WRITTEN TO GAME"
+    data4 = data3[1] + " WRITTEN TO GAME"
+    print(data4)
 
-    print(data2)
+    with open("Player_Nos", 'rb') as zandle:
+        c = pickle.loads(zandle.read())
+
+    with open("Player_2Nos", 'rb') as xandle:
+        g = pickle.loads(xandle.read())
+    print(c["ONE"], g["TWO"])
+    if (c["ONE"] == "0A"):
+        playerNos = {
+            "ONE": "0",
+            "RESET": "N"
+        }
+        with open("Player_Nos", "wb") as zapalm:
+            pickle.dump(playerNos, zapalm)
+            conn.send(b'0')
+
+    elif (g["TWO"] == "1A"):
+        playerNos2 = {
+            "TWO": "1",
+            "RESET": "N"
+        }
+        with open("Player_2Nos", "wb") as xapalm:
+            pickle.dump(playerNos2, xapalm)
+            conn.send(b'1')
+
+
 
 
 
