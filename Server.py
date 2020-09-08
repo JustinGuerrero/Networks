@@ -51,7 +51,7 @@ def createServer():
                     playerone_file.close()
                     if(dataoptions == "0N"):
                         with open("Player_Nos.txt", "w") as playerone_file_write:
-                            playerone_file_write.write("0N")
+                            playerone_file_write.write("0")
                             playerone_file_write.close()
                             playerone_number = "0"
 
@@ -59,9 +59,21 @@ def createServer():
                             clientsocket.sendall(playerone_number.encode())
                             clientsocket.shutdown(SHUT_WR)
                             continue
+                    with open("Player_Nos2.txt", "r") as playertwo_file:
+                        dataoptions2 = playertwo_file.read()
+                        print("Player DATA:", dataoptions2)
+                        playertwo_file.close()
+                        if (dataoptions == "1N"):
+                            with open("Player_Nos2.txt", "w") as playertwo_file_write:
+                                playertwo_file_write.write("1")
+                                playertwo_file_write.close()
+                                playertwo_number = "1"
+
+                                clientsocket.sendall(playertwo_number.encode())
+                                clientsocket.shutdown(SHUT_WR)
+                                continue
 
 
-                    #if(data==)
 
                 clientsocket.sendall(data.encode())
                 clientsocket.shutdown(SHUT_WR)
