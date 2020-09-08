@@ -53,7 +53,7 @@ import urllib3
 import socket
 import http.client
 import pickle
-yat= "ROCK"
+yat= "POST "
 PLAYERNUMBER = 1234
 play = 1
 
@@ -63,14 +63,26 @@ while(play == 1):
 
 
     print("Welcome to ROCK, PAPER, SCISSORS!")
-    yat = input("OPTIONS: ROCK, PAPER, SCISSORS GETSCORE QUIT RESET Please enter your play: ")
+    yat = yat + input("OPTIONS: ROCK, PAPER, SCISSORS GETSCORE QUIT RESET Please enter your play: ")
     if(yat =="QUIT"):
         play = 0
 
+    if(yat == "POST RESET"):
+        yat = "POST RESET " + PLAYERNUMBER
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((sys.argv[1], int(sys.argv[2])))
+        s.send(bytes(yat + " ", "utf-8"))
+        data = s.recv(1024)
+        print(data)
+        continue
+
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((sys.argv[1], int(sys.argv[2])))
-    s.send(bytes(yat, "utf-8"))
-    data = s.recv(10)
+    if(PLAYERNUMBER ==1):
+        s.send(bytes(yat + " \n", "utf-8"))
+    s.send(bytes(yat+" ", "utf-8"))
+    data = s.recv(1024)
     if (data == b'0'):
         PLAYERNUMBER = 0
     elif(data == b'1'):
@@ -79,7 +91,7 @@ while(play == 1):
     print("MY PLAYER NUMBER IS: ", PLAYERNUMBER)
     print(data)
     s.close()
-    time.sleep(60)
+    time.sleep(10)
 
 
 

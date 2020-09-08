@@ -1,30 +1,32 @@
 import pickle
 PLAYS = {
-"rock rock" : "tie" ,
+"rock rock " : "tie" ,
 
-"rock paper" : "0",
+"rock paper " : "0",
 
-"rock scissors" : "0",
+"rock scissors " : "0",
 
-"paper rock" : "0",
+"paper rock " : "0",
 
-"paper paper" : "tie",
+"paper paper " : "tie",
 
-"paper scissors" : "1" ,
+"paper scissors " : "1" ,
 
-"scissors rock" : "1",
+"scissors rock " : "1",
 
-"scissors paper" :"1",
+"scissors paper " :"1",
 
-"scissors scissors" : "tie"
+"scissors scissors " : "tie"
 }
 
 playerNos = {
-    "ONE": "0A"
+    "ONE": "0A",
+    "RESET": "N"
 }
 
 playerNos2 ={
-    "TWO": "1A"
+    "TWO": "1A",
+    "RESET": "N"
 }
 
 
