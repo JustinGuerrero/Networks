@@ -63,7 +63,7 @@ def createServer():
                         dataoptions2 = playertwo_file.read()
                         print("Player DATA:", dataoptions2)
                         playertwo_file.close()
-                        if (dataoptions == "1N"):
+                        if (dataoptions2 == "1N"):
                             with open("Player_Nos2.txt", "w") as playertwo_file_write:
                                 playertwo_file_write.write("1")
                                 playertwo_file_write.close()
@@ -75,8 +75,8 @@ def createServer():
 
 
 
-                clientsocket.sendall(data.encode())
-                clientsocket.shutdown(SHUT_WR)
+                # clientsocket.sendall(data.encode())
+                # clientsocket.shutdown(SHUT_WR)
 
             else:
                 data = "501 NOT IMPLEMENTED"
