@@ -55,20 +55,29 @@ import http.client
 import pickle
 
 
-x = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-x.connect()
-x.request('GET', '/')
+x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+x.connect((sys.argv[1], int(sys.argv[2])))
+x.send(bytes("GET GAMEFILE \n" + " ", "utf-8"))
+data = x.recv(1024)
+x.close()
+print(data)
 
-y= x.getresponse()
+for x in range(3):
 
-z = y.read()
-print(z)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((sys.argv[1], int(sys.argv[2])))
+    s.send(bytes("POST SCISSORS \n" + " ", "utf-8"))
+    data = s.recv(1024)
+    s.close()
+    print(data)
 
-x.request('POST', 'ROCK')
-y= x.getresponse()
 
-z = y.read()
-print(z)
+x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+x.connect((sys.argv[1], int(sys.argv[2])))
+x.send(bytes("OPTIONS GAMEFILE \n" + " ", "utf-8"))
+data = x.recv(1024)
+x.close()
+print(data)
 
 
 

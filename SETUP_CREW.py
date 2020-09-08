@@ -28,7 +28,13 @@ playerNos2 ={
     "TWO": "1A",
     "RESET": "N"
 }
+with open("Player_Nos.txt", "w") as playerone_file_write:
+    playerone_file_write.write("0N")
+    playerone_file_write.close()
 
+with open("Player_Nos2.txt", "w") as playerone_file_write:
+    playerone_file_write.write("1N")
+    playerone_file_write.close()
 
 with open('win_dic', 'wb') as handle:
     pickle.dump(PLAYS, handle)

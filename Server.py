@@ -25,23 +25,46 @@ def createServer():
             if (pieces[0] == "POST"):
                     f = open("game.txt", "a")
                     data2 = pieces[1]
-                    print(data2)
-                    f.write(data2)
+                    f.write(data2+" ")
                     f.close()
-                    data2 = data2 + " WRITTEN TO GAME"
+                    data2 = "202 ACCEPTED " +data2 + " WRITTEN TO GAME"
                     print(data2)
-                    clientsocket.sendall(data.encode())
+                    clientsocket.sendall(data2.encode())
                     clientsocket.shutdown(SHUT_WR)
 
             elif(pieces[0] == "GET"):
                     print("Hit GET")
                     with open("game.txt", "r") as gamefile:
-                        data = gamefile.read(100)
-                        print(data)
+                        data = "200 OK"
+                        data += gamefile.read()
+                        print("GAMEFILE DATA:",data)
 
 
                     clientsocket.sendall(data.encode())
                     clientsocket.shutdown(SHUT_WR)
+
+            elif (pieces[0] == "OPTIONS"):
+                print("Hit OPTIONS")
+                with open("Player_Nos.txt", "r") as playerone_file:
+                    dataoptions = playerone_file.read()
+                    print("Player DATA:", dataoptions)
+                    playerone_file.close()
+                    if(dataoptions == "0N"):
+                        with open("Player_Nos.txt", "w") as playerone_file_write:
+                            playerone_file_write.write("0N")
+                            playerone_file_write.close()
+                            playerone_number = "0"
+
+
+                            clientsocket.sendall(playerone_number.encode())
+                            clientsocket.shutdown(SHUT_WR)
+                            continue
+
+
+                    #if(data==)
+
+                clientsocket.sendall(data.encode())
+                clientsocket.shutdown(SHUT_WR)
 
             else:
                 data = "501 NOT IMPLEMENTED"
