@@ -62,6 +62,7 @@ class Client:
 
 
     def run(self):
+        self.assign_player_number(self)
         wanna_keep_playing = True
         while(wanna_keep_playing):
             print("WELCOME TO  ROCK PAPER SCISSORS")
@@ -135,7 +136,7 @@ class Client:
         print(h1.getresponse().msg)
 
     def assign_player_number(self):
-        print("made get score")
+        print("assign player number")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
         h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
         print('1')
