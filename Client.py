@@ -55,10 +55,11 @@ import pickle
 import requests
 
 class Client:
+    PLAYER_NUMBER = "UNASSIGNED"
 
     def __init__(self):
-        self.h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        self.PLAYER_NUMBER = "UNASSIGNED"
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+
 
     def run(self):
         wanna_keep_playing = True
@@ -66,16 +67,16 @@ class Client:
             print("WELCOME TO  ROCK PAPER SCISSORS")
             print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS")
             selector = input("SELECT:")
+            self.select_switch(self, selector)
 
-            if(selector!= 1 or 2 or 3 or 4 or 5 or 6 ):
-                print("BAD SELECTION TRY AGAIN")
-                continue
-
-            if(selector == 1):
+            # if(selector!= '1' or "2" or "3" or "4" or "5" or "6" ):
+            #     print("BAD SELECTION TRY AGAIN")
+            #     continue
+            if(selector == "1"):
                 wanna_keep_playing = False
                 continue
+            print(selector)
 
-            self.select_switch(selector)
 
 
 
@@ -89,61 +90,70 @@ class Client:
 
         call_this = switcher.get(argument)
         if(call_this=="GET SCORE"):
-            self.getScore()
+            self.getScore(self)
         elif(call_this=="RESET"):
-            self.RESET()
+            self.RESET(self)
         elif(call_this=="ROCK"):
-            self.ROCK()
+            self.ROCK(self)
         elif(call_this=="PAPER"):
-            self.PAPER()
+            self.PAPER(self)
         elif(call_this=="SCISSORS"):
-            self.SCISSORS()
+            self.SCISSORS(self)
 
 
     def getScore(self):
         print("made get score")
-        self.h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
         print('1')
         y = self.h1.getresponse()
         z = y.read()
         print(z)
 
     def ROCK(self):
-
-        self.h1.request("POST", "/game.txt", body="{{}:rock}".format(self.PLAYER_NUMBER))
-        print(self.h1.getresponse().msg)
+        print("ROCK")
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h1.request("POST", "/game.txt", body="{}:rock".format(self.PLAYER_NUMBER))
+        print(h1.getresponse().msg)
 
     def PAPER(self):
-        self.h1.request("POST", "/Player_Nos.txt", body="{{}:paper}".format(self.PLAYER_NUMBER))
-        print(self.h1.getresponse().msg)
+        print("PAPER")
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h1.request("POST", "/Player_Nos.txt", body="{}:paper".format(self.PLAYER_NUMBER))
+        print(h1.getresponse().msg)
 
     def SCISSORS(self):
-        self.h1.request("POST", "/game.txt", body="{{}:scissors}".format(self.PLAYER_NUMBER))
-        print(self.h1.getresponse().msg)
+        print("Scissors")
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h1.request("POST", "/game.txt", body="{}:scissors6".format(self.PLAYER_NUMBER))
+        print(h1.getresponse().msg)
 
     def RESET(self):
-        self.h1.request("POST", "/game.txt", body="{{}:reset}".format(self.PLAYER_NUMBER))
-        print(self.h1.getresponse().msg)
+        print("made to reset")
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h1.request("POST", "/game.txt", body="{}:reset".format(self.PLAYER_NUMBER))
+        print(h1.getresponse().msg)
 
     def assign_player_number(self):
         print("made get score")
-        self.h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
         print('1')
-        y = self.h1.getresponse()
+        y = h1.getresponse()
         z = y.read()
         print(z)
 
 
 
-    def run(self):
-        wanna_keep_playing = True
-        while (wanna_keep_playing):
-            print("WELCOME TO  ROCK PAPER SCISSORS")
-            print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS")
-            y = input("SELECT:")
-            if (y == 1):
-                wanna_keep_playing = False
-                continue
+    # def run(self):
+    #     wanna_keep_playing = True
+    #     while (wanna_keep_playing):
+    #         print("WELCOME TO  ROCK PAPER SCISSORS")
+    #         print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS")
+    #         y = input("SELECT:")
+    #         if (y == 1):
+    #             wanna_keep_playing = False
+    #             continue
 
 
 
