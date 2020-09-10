@@ -135,28 +135,6 @@ class Client:
 
 
 
-
-
-
-
-
-
-        body= "***send this stuff***"
-        self.h1.request("GET", "/Player_Nos2.txt") #http://192.168.56.1:1234
-        print('1')
-        y = self.h1.getresponse()
-
-        z = y.read()
-
-        print(z)
-
-        url = 'http://192.168.56.1:1234/Player_Nos.txt'
-        files = {'file': open('Player_2Nos', 'rb')}
-        print('2')
-
-        h1.request("POST", "/Player_Nos.txt", body="{player1:rock}")
-        print(h1.getresponse().msg)
-
     def run(self):
         wanna_keep_playing = True
         while (wanna_keep_playing):
@@ -167,13 +145,33 @@ class Client:
                 wanna_keep_playing = False
                 continue
 
-    if __name__ == "__main__":
-        run()
+
+
+if __name__ == "__main__":
+
+        client.ren
 
 
 
 
 
+
+
+# body= "***send this stuff***"
+#         self.h1.request("GET", "/Player_Nos2.txt") #http://192.168.56.1:1234
+#         print('1')
+#         y = self.h1.getresponse()
+#
+#         z = y.read()
+#
+#         print(z)
+#
+#         url = 'http://192.168.56.1:1234/Player_Nos.txt'
+#         files = {'file': open('Player_2Nos', 'rb')}
+#         print('2')
+#
+#         h1.request("POST", "/Player_Nos.txt", body="{player1:rock}")
+#         print(h1.getresponse().msg)
 
 
 

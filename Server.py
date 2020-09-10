@@ -32,9 +32,6 @@ from http import HTTPStatus
 
 __version__ = "0.6"
 
-
-
-
 class RPShandler(SimpleHTTPRequestHandler):
     server_version = "SimpleHTTP/" + __version__
 
