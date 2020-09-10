@@ -25,17 +25,15 @@ import socketserver
 import sys
 import time
 import urllib.parse
-
-from functools import partial
-
 from http import HTTPStatus
 
 __version__ = "0.6"
 filin = open("newFile1.txt", "a")
 
-
 class RPShandler(SimpleHTTPRequestHandler):
     server_version = "SimpleHTTP/" + __version__
+    player_number
+
 
     def __init__(self, *args, directory=None, **kwargs):
         if directory is None:
@@ -61,6 +59,13 @@ class RPShandler(SimpleHTTPRequestHandler):
         if f:
             f.close()
 
+
+    def change(self):
+        with open("who_am_i.txt", "w") as who:
+            who.write("1")
+            who.close()
+
+
     def do_POST(self):
         '''Serve a POST REQUEST'''
         print(self.client_address)
@@ -79,7 +84,19 @@ class RPShandler(SimpleHTTPRequestHandler):
                 y = whoyouare.read()
                 print("at assign")
                 whoyouare.close()
-                self.send_response(201)
+                y = int(y)
+            self.send_response(200+y)
+        with open("who_am_i.txt", "w") as whoyouare:
+            y = whoyouare.write("1")
+            print("at assign2")
+            whoyouare.close()
+
+
+
+
+
+
+
 
         #
         # # with open("whos_turn_it_is.txt", "r") as who:
@@ -92,7 +109,7 @@ class RPShandler(SimpleHTTPRequestHandler):
         # # filin.close()
         self.send_response(200, message="WRECK")
         self.send_head()
-        self.send_response(201,message="Language")
+        self.send_response(201, message="Language")
 
 
        # self.send_response(200, raw_post_data)

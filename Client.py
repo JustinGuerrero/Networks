@@ -25,6 +25,7 @@ import secrets
 import http.client, urllib.parse, codecs
 import http.client
 import sys
+import SETUP_CREW
 """
 PROGRAMMING ASSIGNMENT 1
 BLAKE STANGER & JUSTIN GUERRERO
@@ -51,6 +52,7 @@ import socket
 import http.client
 import pickle
 import requests
+import SETUP_CREW
 
 class Client:
     PLAYER_NUMBER = "UNASSIGNED"
@@ -75,9 +77,6 @@ class Client:
                 wanna_keep_playing = False
                 continue
             print(selector)
-
-
-
 
     def select_switch(self, argument):
         print("switch")
@@ -133,22 +132,29 @@ class Client:
         h1.request("POST", "/game.txt", body="{} reset".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
+    # def assign_player_number_two(self):
+    #     if(self.PLAYER_NUMBER=="0"):
+    #         self.PLAYER_NUMBER = "1"
+
     def assign_player_number(self):
-        print("assign player number")
+        # the_g_man = SETUP_CREW()
+    #         # self.PLAYER_NUMBER = the_g_man.your_player_number()
+    #         # the_g_man.increment()
+    #         # print("assign player number")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
         h1.request("POST", "Player_Nos.txt", body= "{} ASSIGNME".format(self.PLAYER_NUMBER))
-        #print(h1.getresponse().msg)
 
         print(h1.getresponse().msg)
 
+        # h1.request("GET", "/who_am_i.txt")  # http://192.168.56.1:1234
+        # y = h1.getresponse()
+        # z = y.read()
+        # self.PLAYER_NUMBER = z.decode("utf-8")
+        # print("player number")
+        # print(self.PLAYER_NUMBER)
+        # h1.close()
 
-        h1.request("GET", "/who_am_i.txt")  # http://192.168.56.1:1234
-        y = h1.getresponse()
-        z = y.read()
-        self.PLAYER_NUMBER = z.decode("utf-8")
-        print("player number")
-        print(self.PLAYER_NUMBER)
-        h1.close()
+
 
 
         # print('1')
