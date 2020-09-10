@@ -46,52 +46,208 @@ needs to accept ip address and port of server process
 python client.py 128.111.52.245 5000
 """
 
-
 import socket
 import sys
 import urllib3
 import socket
 import http.client
 import pickle
+import requests
 
-PLAYERNUMBER = "UNASSIGNED"
+class Client:
 
+    def __init__(self):
+        self.h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        self.PLAYER_NUMBER = "UNASSIGNED"
 
+    def run(self):
+        wanna_keep_playing = True
+        while(wanna_keep_playing):
+            print("WELCOME TO  ROCK PAPER SCISSORS")
+            print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS")
+            selector = input("SELECT:")
 
+            if(selector!= 1 or 2 or 3 or 4 or 5 or 6 ):
+                print("BAD SELECTION TRY AGAIN")
+                continue
 
-x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-x.connect((sys.argv[1], int(sys.argv[2])))
-x.send(bytes("GET GAMEFILE \n" + " ", "utf-8"))
-data = x.recv(1024)
-x.close()
-print(data)
+            if(selector == 1):
+                wanna_keep_playing = False
+                continue
 
-for x in range(3):
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((sys.argv[1], int(sys.argv[2])))
-    s.send(bytes("POST SCISSORS \n" + " ", "utf-8"))
-    data = s.recv(1024)
-    s.close()
-    print(data)
-
-
-
-x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-x.connect((sys.argv[1], int(sys.argv[2])))
-x.send(bytes("OPTIONS GAMEFILE \n" + " ", "utf-8"))
-data = x.recv(1024)
-x.close()
-if(data==b'1'):
-    PLAYERNUMBER = "1"
-if(data==b'0'):
-    PLAYERNUMBER = "0"
-print(PLAYERNUMBER)
-
-print(data)
+            self.select_switch(selector)
 
 
 
+    def select_switch(self, argument):
+
+        switcher = {"2": "RESET",
+                    "3": "GET SCORE",
+                    "4": "ROCK",
+                    "5": "PAPER",
+                    "6": "SCISSORS"}
+
+        call_this = switcher.get(argument)
+        if(call_this=="GET SCORE"):
+            self.getScore()
+        elif(call_this=="RESET"):
+            self.RESET()
+        elif(call_this=="ROCK"):
+            self.ROCK()
+        elif(call_this=="PAPER"):
+            self.PAPER()
+        elif(call_this=="SCISSORS"):
+            self.SCISSORS()
+
+
+    def getScore(self):
+        print("made get score")
+        self.h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
+        print('1')
+        y = self.h1.getresponse()
+        z = y.read()
+        print(z)
+
+    def ROCK(self):
+
+        self.h1.request("POST", "/game.txt", body="{{}:rock}".format(self.PLAYER_NUMBER))
+        print(self.h1.getresponse().msg)
+
+    def PAPER(self):
+        self.h1.request("POST", "/Player_Nos.txt", body="{{}:paper}".format(self.PLAYER_NUMBER))
+        print(self.h1.getresponse().msg)
+
+    def SCISSORS(self):
+        self.h1.request("POST", "/game.txt", body="{{}:scissors}".format(self.PLAYER_NUMBER))
+        print(self.h1.getresponse().msg)
+
+    def RESET(self):
+        self.h1.request("POST", "/game.txt", body="{{}:reset}".format(self.PLAYER_NUMBER))
+        print(self.h1.getresponse().msg)
+
+    def assign_player_number(self):
+        print("made get score")
+        self.h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
+        print('1')
+        y = self.h1.getresponse()
+        z = y.read()
+        print(z)
+
+
+
+
+
+
+
+
+
+        body= "***send this stuff***"
+        self.h1.request("GET", "/Player_Nos2.txt") #http://192.168.56.1:1234
+        print('1')
+        y = self.h1.getresponse()
+
+        z = y.read()
+
+        print(z)
+
+        url = 'http://192.168.56.1:1234/Player_Nos.txt'
+        files = {'file': open('Player_2Nos', 'rb')}
+        print('2')
+
+        h1.request("POST", "/Player_Nos.txt", body="{player1:rock}")
+        print(h1.getresponse().msg)
+
+    def run(self):
+        wanna_keep_playing = True
+        while (wanna_keep_playing):
+            print("WELCOME TO  ROCK PAPER SCISSORS")
+            print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS")
+            y = input("SELECT:")
+            if (y == 1):
+                wanna_keep_playing = False
+                continue
+
+    if __name__ == "__main__":
+        run()
+
+
+
+
+
+
+
+
+
+
+
+#y= h1.getresponse()
+
+#
+
+
+#requests.post(url, data={'key':'value'})
+
+#(r.text)
+
+
+print('here')
+
+
+#r.text
+print('made it to print text')
+#print(r.text)
+#h1.request("POST", "/game.txt", "game.txt")
+
+
+
+
+#
+#
+# PLAYERNUMBER = "UNASSIGNED"
+#
+#
+#
+#
+# x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# x.connect((sys.argv[1], int(sys.argv[2])))
+# x.send(bytes("GET GAMEFILE \n" + " ", "utf-8"))
+# data = x.recv(1024)
+# x.close()
+# print(data)
+#
+# # for x in range(3):
+#
+# print("HIT POST")
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.connect((sys.argv[1], int(sys.argv[2])))
+# s.send(bytes("POST SCISSORS \n" + " ", "utf-8"))
+# data = s.recv(1024)
+# s.close()
+# print(data)
+#
+#
+# print("Start END")
+# x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# print("Past socket")
+#
+# x.connect((sys.argv[1], int(sys.argv[2])))
+# print("past connect")
+# x.send(bytes("OPTIONS GAMEFILE \n" + " ", "utf-8"))
+# print("past send")
+# data = x.recv(1024)
+# print("past recieve")
+# x.close()
+# if(data==b'1'):
+#     PLAYERNUMBER = "1"
+# if(data==b'0'):
+#     PLAYERNUMBER = "0"
+# print(PLAYERNUMBER)
+#
+# print(data)
+# print("GOT TO END")
+#
+#
+#
 
 
 
