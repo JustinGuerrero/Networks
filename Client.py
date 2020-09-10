@@ -148,8 +148,8 @@ class Client:
 
 
 if __name__ == "__main__":
-
-        client.ren
+    client = Client
+    client.run(client)
 
 
 
