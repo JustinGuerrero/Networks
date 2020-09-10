@@ -80,7 +80,7 @@ class Client:
 
 
     def select_switch(self, argument):
-
+        print("switch")
         switcher = {"2": "RESET",
                     "3": "GET SCORE",
                     "4": "ROCK",
