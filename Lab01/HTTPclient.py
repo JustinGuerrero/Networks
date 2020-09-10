@@ -32,8 +32,9 @@ class Client:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     #s.bind((justin, port))
     s.connect(((sys.argv[1]), PORT))  #connect (ipadress, port)
-    message = input("->")
+    message = input()
     while True:
+        print(message)
         response = requests.post(string, data=message)
         s.sendto(message.encode('utf-8'), server)
         data, addr = s.recvfrom(PORT)

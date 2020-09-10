@@ -13,36 +13,41 @@ newgame = ['Rock', 'Paper', 'Scissors']
 
 
 class requestHandler(BaseHTTPRequestHandler):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((HOST, PORT))
-    print("here we are")
-    s.listen(1)
-    print("made it here")
-    conn, addr = s.accept()
-    print("getting closer")
-    data = conn.recv(BUFFER_SIZE)
-    print("received message")
-    conn.send(data)  # echo
+    # def them_headers(self, move, response):
+    #     self.send_move(move, response)
+    #     self.end_headers()+
+    def connection(self):
+
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind((HOST, PORT))
+        s.listen()
+        print("listening")
+        conn, addr = s.accept()
+        print("connection has been accepted")
+        data = conn.recv(BUFFER_SIZE)
+        print("received message")
+        conn.send(data)  # echo
 
     def do_GET(self):
         r = requests.get(string)
-        # if self.path.endswith(''):
-        #     self.send_response(200)
-        #     self.send_header('content-type', 'text/html')
-        #     self.end_headers()
+        requests.post(string, "dumb")
+        if self.path.endswith('/'):
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
 
-        output = ''
-            # output += '<html><body>'
-            # output += 'Your move options are:'
-            # output += '<h1> Rock, Paper, Scissors</h1>'
-            # output += 'Please send your response... and one more thing'
-            # output += '<h3> GOOD LUCK BEATING ME BLAKE</h3>'
-            # output += "<h2>Please select a move</h2>"
+            output = ''
+            output += '<html><body>'
+            output += 'Your move options are:'
+            output += '<h1> Rock, Paper, Scissors</h1>'
+            output += 'Please send your response... and one more thing'
+            output += '<h3> GOOD LUCK BEATING ME BLAKE</h3>'
+            output += "<h2>Please select a move</h2>"
         for game in newgame:
             output += game
-            #     output += '</br>'
-            # output += '</body></html>'
-            # output += ''
+            output += '</br>'
+            output += '</body></html>'
+            output += ''
             output += '<html><body>'
             output += '<h1> Enter your play</h1>'
             output += '<form method="POST" enctype="multipart/form-data" action="/newgame">'
@@ -73,8 +78,8 @@ class requestHandler(BaseHTTPRequestHandler):
 
 
 def main():
-    PORT = 8000
     server = HTTPServer((HOST, PORT), requestHandler)
+    # requestHandler.connection()
     print('Server running on port %s' % PORT)
     server.serve_forever()
 

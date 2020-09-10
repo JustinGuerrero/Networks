@@ -6,26 +6,39 @@ import http.client
 import time
 import requests
 
-BUFFER_SIZE = 1024
-host = sys.argv[1]
-port = int(sys.argv[2])
-string = 'http://'+host+':'+sys.argv[2]
+# BUFFER_SIZE = 1024
+HOST = sys.argv[1]
+PORT = int(sys.argv[2])
+string = 'http://'+HOST+':'+sys.argv[2]
 
 class myClient():
+   #print(string)
 
- #  print("Put some stupid thing here")
- #   answer = input()
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((host, port))
-    s.connect((host, port))
-    s.send(bytes("test", 'utf-8'))
-    data = s.recv(BUFFER_SIZE)
-    data2 = data.decode('utf-8')
-    # r = requests.post("http://" + host + ":" + '8000', data2)
-    print(data2)
-    s.close()
+ #  HOST = '127.0.0.1'  # The server's hostname or IP address
+ #  PORT = 65432  # The port used by the server
 
+   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+      s.connect((HOST, PORT))
+      s.sendall(b'Hello, world')
+      r = requests.get(string)
+      r1 = requests.post(string, {'justin':'rock'})
+      data = s.recv(1024)
 
+   print('received', repr(data))
+
+ #   print('Received', repr(data))
+ # #  print("Put some stupid thing here")
+ # #   answer = input()
+ #    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ #    s.connect((host, port))
+ #    s.sendall(bytes("test", 'utf-8'))
+ #    data = s.recv(BUFFER_SIZE)
+ #    data2 = data.decode('utf-8')
+ #    r = requests.post(host + ":" + str(port), data2)
+ #    print(data2)
+ #    s.close()
+ #
+ #
 
 # class Client(threading.Thread):
 #   def __init__(self, my_server, opp_server):
