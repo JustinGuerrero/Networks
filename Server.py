@@ -81,14 +81,6 @@ class RPShandler(SimpleHTTPRequestHandler):
                 whoyouare.close()
                 self.send_response(201)
 
-
-
-
-
-
-
-
-
         #
         # # with open("whos_turn_it_is.txt", "r") as who:
         # #     turn_propper = who.read()
@@ -100,7 +92,7 @@ class RPShandler(SimpleHTTPRequestHandler):
         # # filin.close()
         self.send_response(200, message="WRECK")
         self.send_head()
-        self.send_response(201,message="GET FUCKED YOU ORNRY BASTERED")
+        self.send_response(201,message="Language")
 
 
        # self.send_response(200, raw_post_data)

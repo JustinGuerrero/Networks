@@ -148,7 +148,7 @@ class Client:
         self.PLAYER_NUMBER = z.decode("utf-8")
         print("player number")
         print(self.PLAYER_NUMBER)
-
+        h1.close()
 
 
         # print('1')
