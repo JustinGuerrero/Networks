@@ -105,7 +105,7 @@ class Client:
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
         h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
         print('1')
-        y = self.h1.getresponse()
+        y = h1.getresponse()
         z = y.read()
         print(z)
 
@@ -136,7 +136,14 @@ class Client:
     def assign_player_number(self):
         print("assign player number")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
+        h1.request("POST", "Player_No.txt", body= "ASSIGNME")
+        h1.getresponse()
+        h1.request("GET", "/who_am_i.txt")  # http://192.168.56.1:1234
+        y = h1.getresponse()
+        z = y.read()
+        print(z)
+
+
         print('1')
         y = h1.getresponse()
         z = y.read()

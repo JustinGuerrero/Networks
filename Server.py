@@ -67,9 +67,13 @@ class RPShandler(SimpleHTTPRequestHandler):
         print(raw_post_data)
         data = raw_post_data.decode('utf-8')
         new = str(data)
+
         split_data = new.split(" ")
         print(split_data[0])
         print(split_data[1])
+        if
+
+
         with open("whos_turn_it_is.txt", "r") as who:
             turn_propper = who.read()
             if(split_data[0]!=turn_propper):
