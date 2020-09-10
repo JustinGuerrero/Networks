@@ -153,10 +153,6 @@ if __name__ == "__main__":
 
 
 
-
-
-
-
 # body= "***send this stuff***"
 #         self.h1.request("GET", "/Player_Nos2.txt") #http://192.168.56.1:1234
 #         print('1')
