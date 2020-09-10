@@ -69,9 +69,9 @@ class Client:
             selector = input("SELECT:")
             self.select_switch(self, selector)
 
-            # if(selector!= '1' or "2" or "3" or "4" or "5" or "6" ):
-            #     print("BAD SELECTION TRY AGAIN")
-            #     continue
+            if(selector!= '1' or "2" or "3" or "4" or "5" or "6" ):
+                print("BAD SELECTION TRY AGAIN")
+                continue
             if(selector == "1"):
                 wanna_keep_playing = False
                 continue

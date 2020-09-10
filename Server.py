@@ -31,6 +31,8 @@ from functools import partial
 from http import HTTPStatus
 
 __version__ = "0.6"
+filin = open("newFile1.txt", "a")
+
 
 class RPShandler(SimpleHTTPRequestHandler):
     server_version = "SimpleHTTP/" + __version__
@@ -64,6 +66,10 @@ class RPShandler(SimpleHTTPRequestHandler):
         #raw_post_data = self.rfile.read(int(self.headers['Content-Length']));
         raw_post_data = self.rfile.read(int(self.headers['Content-Length']))
         print(raw_post_data)
+        data = raw_post_data.decode('utf-8')
+        new = str(data)
+        filin.write(new)
+        filin.close()
         self.send_response(200, message="WRECK")
         self.send_head()
         self.send_response(201,message="GET FUCKED YOU ORNRY BASTERED")
@@ -376,6 +382,7 @@ def executable(path):
 
 
 def run(server_class=HTTPServer, handler_class=RPShandler):
+
  server_address = (sys.argv[1], int(sys.argv[2]))
  httpd = server_class(server_address, handler_class)
  httpd.serve_forever()
@@ -766,7 +773,7 @@ if __name__ == "__main__":
 #
 #
 #
-
+#  print()
 
 #
 # file = open("game.txt", "w")
