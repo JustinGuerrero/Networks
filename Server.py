@@ -52,6 +52,9 @@ class RPShandler(SimpleHTTPRequestHandler):
             finally:
                 f.close()
 
+    # def assign_Player(self):
+    #     with ()
+
     def do_HEAD(self):
         """Serve a HEAD request."""
         f = self.send_head()
@@ -67,27 +70,34 @@ class RPShandler(SimpleHTTPRequestHandler):
         print(raw_post_data)
         data = raw_post_data.decode('utf-8')
         new = str(data)
-
         split_data = new.split(" ")
         print(split_data[0])
         print(split_data[1])
-        if
 
-
-        with open("whos_turn_it_is.txt", "r") as who:
-            turn_propper = who.read()
-            if(split_data[0]!=turn_propper):
-                self.send_response()
-
-
-
+        if((split_data[1]=="ASSIGNME")&(split_data[0]=="UNASSIGNED")):
+            with open("who_am_i.txt", "r") as whoyouare:
+                y = whoyouare.read()
+                print("at assign")
+                whoyouare.close()
+                self.send_response(201)
 
 
 
 
 
-        filin.write(new)
-        filin.close()
+
+
+
+
+        #
+        # # with open("whos_turn_it_is.txt", "r") as who:
+        # #     turn_propper = who.read()
+        # #     if(split_data[0]!=turn_propper):
+        # #         self.send_response()
+        # #
+        # #
+        # # filin.write(new)
+        # # filin.close()
         self.send_response(200, message="WRECK")
         self.send_head()
         self.send_response(201,message="GET FUCKED YOU ORNRY BASTERED")
