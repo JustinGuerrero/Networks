@@ -70,6 +70,15 @@ class RPShandler(SimpleHTTPRequestHandler):
         split_data = new.split(" ")
         print(split_data[0])
         print(split_data[1])
+        with open("whos_turn_it_is.txt", "r") as who:
+            turn_propper = who.read()
+            if(split_data[0]!=turn_propper):
+                self.send_response()
+
+
+
+
+
 
 
 
