@@ -113,25 +113,25 @@ class Client:
     def ROCK(self):
         print("ROCK")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{}:rock".format(self.PLAYER_NUMBER))
+        h1.request("POST", "/game.txt", body="{} rock".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def PAPER(self):
         print("PAPER")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/Player_Nos.txt", body="{}:paper".format(self.PLAYER_NUMBER))
+        h1.request("POST", "/Player_Nos.txt", body="{} paper".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def SCISSORS(self):
         print("Scissors")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{}:scissors6".format(self.PLAYER_NUMBER))
+        h1.request("POST", "/game.txt", body="{} scissors".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def RESET(self):
         print("made to reset")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{}:reset".format(self.PLAYER_NUMBER))
+        h1.request("POST", "/game.txt", body="{} reset".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def assign_player_number(self):

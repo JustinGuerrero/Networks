@@ -60,7 +60,6 @@ class RPShandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         '''Serve a POST REQUEST'''
-
         print(self.client_address)
         print("made it to post and above is client address")
         #raw_post_data = self.rfile.read(int(self.headers['Content-Length']));
@@ -68,6 +67,12 @@ class RPShandler(SimpleHTTPRequestHandler):
         print(raw_post_data)
         data = raw_post_data.decode('utf-8')
         new = str(data)
+        split_data = new.split(" ")
+        print(split_data[0])
+        print(split_data[1])
+
+
+
         filin.write(new)
         filin.close()
         self.send_response(200, message="WRECK")
