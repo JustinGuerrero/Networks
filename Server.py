@@ -77,8 +77,33 @@ class RPShandler(SimpleHTTPRequestHandler):
         data = raw_post_data.decode('utf-8')
         new = str(data)
         split_data = new.split(" ")
-        print(split_data[0])
-        print(split_data[1])
+        print(split_data[0]) #player number
+        print(split_data[1]) #move
+
+        if(split_data[1]=="SCORE"):
+            with open("newFile1.txt") as score:
+                line = score.readline()
+                while(line):
+                    with open("Player_Nos", 'rb') as zandle:
+                        c = pickle.loads(zandle.read())
+                        print(c[line])
+                        if(c[line]=="1"):
+                            player2wins =0
+                            player2wins +=player2wins
+                        elif(c[line] == "0"):
+                            player1wins = 0
+                            player1wins += player1wins
+                        elif (c[line] == "tie"):
+                            ties = 0
+                            ties += ties
+                    print("ties", ties, "player2wins", player2wins, "player1wins", player1wins)
+                zandle.close()
+        score.close()
+
+
+
+
+
 
         if((split_data[1]=="ASSIGNME")&(split_data[0]=="UNASSIGNED")):
             with open("who_am_i.txt", "r") as whoyouare:

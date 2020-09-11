@@ -102,7 +102,7 @@ class Client:
     def getScore(self):
         print("made get score")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
+        h1.request("GET", "/score.txt", body="{}  SCORE".format(self.PLAYER_NUMBER))  # http://192.168.56.1:1234
         print('1')
         y = h1.getresponse()
         z = y.read().decode('utf-8')
@@ -111,7 +111,7 @@ class Client:
     def ROCK(self):
         print("ROCK")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{} rock \n".format(self.PLAYER_NUMBER))
+        h1.request("POST", "/game.txt", body="{} rock ".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def PAPER(self):
