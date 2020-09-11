@@ -137,16 +137,21 @@ class Client:
     #         self.PLAYER_NUMBER = "1"
 
     def assign_player_number(self):
-        # the_g_man = SETUP_CREW()
-    #         # self.PLAYER_NUMBER = the_g_man.your_player_number()
-    #         # the_g_man.increment()
-    #         # print("assign player number")
-
+        print("made get assign")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("GET", "/Player_Nos.txt")
+        h1.request("GET", "/newFile1.txt")  # http://192.168.56.1:1234
+
         y = h1.getresponse()
         z = y.read().decode('utf-8')
         print(z)
+        print("this is player number compare", z)
+        if(z==""):
+            self.PLAYER_NUMBER=0
+        elif(z!=""):
+            self.PLAYER_NUMBER=1
+        print(self.PLAYER_NUMBER)
+
+
 
         #print(h1.getresponse().msg)
 

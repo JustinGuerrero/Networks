@@ -32,7 +32,7 @@ filin = open("newFile1.txt", "a")
 
 class RPShandler(SimpleHTTPRequestHandler):
     server_version = "SimpleHTTP/" + __version__
-    player_number = 1
+
 
 
     def __init__(self, *args, directory=None, **kwargs):
@@ -89,7 +89,7 @@ class RPShandler(SimpleHTTPRequestHandler):
                 print("at assign")
                 whoyouare.close()
                 y = int(y)
-            self.send_response(200+y)
+            self.send_response(200)
         with open("who_am_i.txt", "w") as whoyouare:
             y = whoyouare.write("1")
             print("at assign2")

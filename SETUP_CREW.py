@@ -39,8 +39,8 @@ class SETUP_CREW():
     }
 
 
-    with open("who_am_i.txt", "w") as playerone_file_write:
-        playerone_file_write.write("0")
+    with open("newFile1.txt", "w") as playerone_file_write:
+        playerone_file_write.write("")
         playerone_file_write.close()
 
     with open("Player_Nos2.txt", "w") as playerone_file_write:
