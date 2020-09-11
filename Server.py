@@ -77,11 +77,8 @@ class RPShandler(SimpleHTTPRequestHandler):
         data = raw_post_data.decode('utf-8')
         new = str(data)
         split_data = new.split(" ")
-        #print(split_data[0])
+        print(split_data[0])
         print(split_data[1])
-        if(split_data[1] == split_data[2]):
-            self.send_head()
-            self.send_response(200, message="TIE")
 
         if((split_data[1]=="ASSIGNME")&(split_data[0]=="Justin")):
             with open("who_am_i.txt", "r") as whoyouare:

@@ -129,7 +129,8 @@ class Client:
     def RESET(self):
         print("made to reset")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{} reset".format(self.PLAYER_NUMBER))
+        h1.request("POST", "http://localhost:8000", body="{} I WOULD LIKE TO RESET THE GAME".format(self.PLAYER_NUMBER))
+
         print(h1.getresponse().msg)
 
     # def assign_player_number_two(self):
