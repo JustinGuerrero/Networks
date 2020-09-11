@@ -77,10 +77,13 @@ class RPShandler(SimpleHTTPRequestHandler):
         data = raw_post_data.decode('utf-8')
         new = str(data)
         split_data = new.split(" ")
-        print(split_data[0])
+        #print(split_data[0])
         print(split_data[1])
+        if(split_data[1] == split_data[2]):
+            self.send_head()
+            self.send_response(200, message="TIE")
 
-        if((split_data[1]=="ASSIGNME")&(split_data[0]=="UNASSIGNED")):
+        if((split_data[1]=="ASSIGNME")&(split_data[0]=="Justin")):
             with open("who_am_i.txt", "r") as whoyouare:
                 y = whoyouare.read()
                 print("at assign")
@@ -98,14 +101,7 @@ class RPShandler(SimpleHTTPRequestHandler):
         self.send_response(200, message="Language")
 
 
-       # self.send_response(200, raw_post_data)
 
-
-
-
-        # urlParsed_data =urllib.parse.urlparse(raw_post_data)
-        #print(urlParsed_data)
-        #self._determine_response(raw_post_data);
 
 
     def send_head(self):
