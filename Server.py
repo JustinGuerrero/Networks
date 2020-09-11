@@ -32,7 +32,7 @@ filin = open("newFile1.txt", "a")
 
 class RPShandler(SimpleHTTPRequestHandler):
     server_version = "SimpleHTTP/" + __version__
-    player_number
+    player_number = 1
 
 
     def __init__(self, *args, directory=None, **kwargs):
@@ -68,6 +68,7 @@ class RPShandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         '''Serve a POST REQUEST'''
+        filin = open("newFile1.txt", "a")
         print(self.client_address)
         print("made it to post and above is client address")
         #raw_post_data = self.rfile.read(int(self.headers['Content-Length']));
@@ -91,25 +92,10 @@ class RPShandler(SimpleHTTPRequestHandler):
             print("at assign2")
             whoyouare.close()
 
-
-
-
-
-
-
-
-        #
-        # # with open("whos_turn_it_is.txt", "r") as who:
-        # #     turn_propper = who.read()
-        # #     if(split_data[0]!=turn_propper):
-        # #         self.send_response()
-        # #
-        # #
-        # # filin.write(new)
-        # # filin.close()
-        self.send_response(200, message="WRECK")
+        filin.write(new)
+        ##filin.close()
         self.send_head()
-        self.send_response(201, message="Language")
+        self.send_response(200, message="Language")
 
 
        # self.send_response(200, raw_post_data)

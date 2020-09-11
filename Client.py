@@ -53,7 +53,7 @@ import http.client
 import pickle
 import requests
 import SETUP_CREW
-
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 class Client:
     PLAYER_NUMBER = "UNASSIGNED"
 
@@ -68,23 +68,24 @@ class Client:
             print("WELCOME TO  ROCK PAPER SCISSORS")
             print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS")
             selector = input("SELECT:")
+
+            #if(selector != 1 or 2 or 3 or 4 or 5 or 6 ):
+                #print("BAD SELECTION TRY AGAIN")
+
+            if(selector == 1):
+                wanna_keep_playing = False
+                exit()
+            print("You selected option " + selector)
             self.select_switch(self, selector)
 
-            if(selector!= '1' or "2" or "3" or "4" or "5" or "6" ):
-                print("BAD SELECTION TRY AGAIN")
-                continue
-            if(selector == "1"):
-                wanna_keep_playing = False
-                continue
-            print(selector)
-
     def select_switch(self, argument):
-        print("switch")
+        #print("switch")
         switcher = {"2": "RESET",
                     "3": "GET SCORE",
                     "4": "ROCK",
                     "5": "PAPER",
-                    "6": "SCISSORS"}
+                    "6": "SCISSORS"
+                    }
 
         call_this = switcher.get(argument)
         if(call_this=="GET SCORE"):
@@ -98,32 +99,31 @@ class Client:
         elif(call_this=="SCISSORS"):
             self.SCISSORS(self)
 
-
     def getScore(self):
         print("made get score")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
         h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
         print('1')
         y = h1.getresponse()
-        z = y.read()
+        z = y.read().decode('utf-8')
         print(z)
 
     def ROCK(self):
         print("ROCK")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{} rock".format(self.PLAYER_NUMBER))
+        h1.request("POST", "/game.txt", body="{} rock \n".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def PAPER(self):
         print("PAPER")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/Player_Nos.txt", body="{} paper".format(self.PLAYER_NUMBER))
+        h1.request("POST", "/Player_Nos.txt", body="{} paper \n".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def SCISSORS(self):
         print("Scissors")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{} scissors".format(self.PLAYER_NUMBER))
+        h1.request("POST", "/game.txt", body="{} scissors \n".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def RESET(self):
@@ -141,10 +141,14 @@ class Client:
     #         # self.PLAYER_NUMBER = the_g_man.your_player_number()
     #         # the_g_man.increment()
     #         # print("assign player number")
-        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "Player_Nos.txt", body= "{} ASSIGNME".format(self.PLAYER_NUMBER))
 
-        print(h1.getresponse().msg)
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h1.request("GET", "/Player_Nos.txt")
+        y = h1.getresponse()
+        z = y.read().decode('utf-8')
+        print(z)
+
+        #print(h1.getresponse().msg)
 
         # h1.request("GET", "/who_am_i.txt")  # http://192.168.56.1:1234
         # y = h1.getresponse()
