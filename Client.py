@@ -24,6 +24,7 @@ import requests
 import secrets
 import http.client, urllib.parse, codecs
 import http.client
+import http.server
 import sys
 import SETUP_CREW
 """
@@ -66,7 +67,7 @@ class Client:
         wanna_keep_playing = True
         while(wanna_keep_playing):
             print("WELCOME TO  ROCK PAPER SCISSORS")
-            print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS")
+            print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS 7: GET RESULT")
             selector = input("SELECT:")
 
             #if(selector != 1 or 2 or 3 or 4 or 5 or 6 ):
@@ -84,7 +85,8 @@ class Client:
                     "3": "GET SCORE",
                     "4": "ROCK",
                     "5": "PAPER",
-                    "6": "SCISSORS"
+                    "6": "SCISSORS",
+                    "7": "GET RESULT"
                     }
 
         call_this = switcher.get(argument)
@@ -98,12 +100,22 @@ class Client:
             self.PAPER(self)
         elif(call_this=="SCISSORS"):
             self.SCISSORS(self)
+        elif(call_this=='GET RESULT'):
+            self.getResult(self)
+    def getResult(self):
+        print("getting score: \n")
+        h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h1.request("GET", "/WhoWon.txt")  # http://192.168.56.1:1234
+        #print('1')
+        y = h1.getresponse()
+        z = y.read().decode('utf-8')
+        print(z)
 
     def getScore(self):
-        print("made get score")
+        print("Score of the game is: ")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
         h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
-        print('1')
+        #print('1')
         y = h1.getresponse()
         z = y.read().decode('utf-8')
         print(z)
@@ -111,34 +123,46 @@ class Client:
     def ROCK(self):
         print("ROCK")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{} rock ".format(self.PLAYER_NUMBER))
+        h1.request("POST", "http://localhost:8000", body="{} rock ".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def PAPER(self):
         print("PAPER")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/Player_Nos.txt", body="{} paper".format(self.PLAYER_NUMBER))
+        h1.request("POST", "http://localhost:8000", body="{} paper".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def SCISSORS(self):
         print("Scissors")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "/game.txt", body="{} scissors ".format(self.PLAYER_NUMBER))
+        h1.request("POST", "http://localhost:8000", body="{} scissors ".format(self.PLAYER_NUMBER))
         print(h1.getresponse().msg)
 
     def RESET(self):
         print("made to reset")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("POST", "http://localhost:8000", body="{} I WOULD LIKE TO RESET THE GAME".format(self.PLAYER_NUMBER))
-
-        print(h1.getresponse().msg)
+        h1.request("POST", "/newFile1", body="{} I WOULD LIKE TO RESET THE GAME".format(self.PLAYER_NUMBER))
+        h2 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+        h2.request("GET", "/newFile1.txt")
+        y = h2.getresponse()
+        z = y.read().decode('utf-8')
+        print(z)
+        play = input("keep playing? 1 for yes 0 for no\n")
+        if(play == '1'):
+            print("continuing...")
+            print("No reset has been triggered, continue playing. ")
+            return
+        else:
+            print("Opponent has agreed. ")
+            print("please reconnect when you wish to continue playing.")
+            exit(1)
 
     # def assign_player_number_two(self):
     #     if(self.PLAYER_NUMBER=="0"):
     #         self.PLAYER_NUMBER = "1"
 
     def assign_player_number(self):
-        print("made get assign")
+        print("assigning a player ID")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
         h1.request("GET", "/newFile1.txt")  # http://192.168.56.1:1234
 
@@ -154,300 +178,8 @@ class Client:
 
 
 
-        #print(h1.getresponse().msg)
-
-        # h1.request("GET", "/who_am_i.txt")  # http://192.168.56.1:1234
-        # y = h1.getresponse()
-        # z = y.read()
-        # self.PLAYER_NUMBER = z.decode("utf-8")
-        # print("player number")
-        # print(self.PLAYER_NUMBER)
-        # h1.close()
-
-
-
-
-        # print('1')
-        # y = h1.getresponse()
-        # z = y.read()
-        # print(z)
-
-
-
-    # def run(self):
-    #     wanna_keep_playing = True
-    #     while (wanna_keep_playing):
-    #         print("WELCOME TO  ROCK PAPER SCISSORS")
-    #         print("PLEASE SELECT: 1: QUIT, 2: RESET, 3: GET SCORE, 4: ROCK, 5: PAPER, 6: SCISSORS")
-    #         y = input("SELECT:")
-    #         if (y == 1):
-    #             wanna_keep_playing = False
-    #             continue
-
-
 
 if __name__ == "__main__":
     client = Client
     client.run(client)
-
-
-
-# body= "***send this stuff***"
-#         self.h1.request("GET", "/Player_Nos2.txt") #http://192.168.56.1:1234
-#         print('1')
-#         y = self.h1.getresponse()
-#
-#         z = y.read()
-#
-#         print(z)
-#
-#         url = 'http://192.168.56.1:1234/Player_Nos.txt'
-#         files = {'file': open('Player_2Nos', 'rb')}
-#         print('2')
-#
-#         h1.request("POST", "/Player_Nos.txt", body="{player1:rock}")
-#         print(h1.getresponse().msg)
-
-
-
-
-
-
-#y= h1.getresponse()
-
-#
-
-
-#requests.post(url, data={'key':'value'})
-
-#(r.text)
-
-
-print('here')
-
-
-#r.text
-print('made it to print text')
-#print(r.text)
-#h1.request("POST", "/game.txt", "game.txt")
-
-
-
-
-#
-#
-# PLAYERNUMBER = "UNASSIGNED"
-#
-#
-#
-#
-# x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# x.connect((sys.argv[1], int(sys.argv[2])))
-# x.send(bytes("GET GAMEFILE \n" + " ", "utf-8"))
-# data = x.recv(1024)
-# x.close()
-# print(data)
-#
-# # for x in range(3):
-#
-# print("HIT POST")
-# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# s.connect((sys.argv[1], int(sys.argv[2])))
-# s.send(bytes("POST SCISSORS \n" + " ", "utf-8"))
-# data = s.recv(1024)
-# s.close()
-# print(data)
-#
-#
-# print("Start END")
-# x = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# print("Past socket")
-#
-# x.connect((sys.argv[1], int(sys.argv[2])))
-# print("past connect")
-# x.send(bytes("OPTIONS GAMEFILE \n" + " ", "utf-8"))
-# print("past send")
-# data = x.recv(1024)
-# print("past recieve")
-# x.close()
-# if(data==b'1'):
-#     PLAYERNUMBER = "1"
-# if(data==b'0'):
-#     PLAYERNUMBER = "0"
-# print(PLAYERNUMBER)
-#
-# print(data)
-# print("GOT TO END")
-#
-#
-#
-
-
-
-
-
-
-
-
-
-
-
-
-#CLIENT OLD ATTEMPT
-# yat= ""
-# PLAYERNUMBER = 1234
-# play = 1
-#
-# print("my player number is :", PLAYERNUMBER)
-#
-# while(play == 1):
-#
-#
-#     print("Welcome to ROCK, PAPER, SCISSORS!")
-#     yat = yat + input("OPTIONS: ROCK, PAPER, SCISSORS GETSCORE QUIT RESET Please enter your play: ")
-#     if(yat =="QUIT"):
-#         play = 0
-#
-#     if(yat == "POST RESET"):
-#         yat = "POST RESET " + PLAYERNUMBER
-#         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#         s.connect((sys.argv[1], int(sys.argv[2])))
-#         s.send(bytes(yat + " ", "utf-8"))
-#         data = s.recv(1024)
-#         print(data)
-#         continue
-#
-#
-#     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     s.connect((sys.argv[1], int(sys.argv[2])))
-#     if(PLAYERNUMBER ==1):
-#         s.send(bytes(yat + " \n", "utf-8"))
-#     s.send(bytes(yat+" ", "utf-8"))
-#     data = s.recv(1024)
-#     if (data == b'0'):
-#         PLAYERNUMBER = 0
-#     elif(data == b'1'):
-#         PLAYERNUMBER = 1
-#
-#     print("MY PLAYER NUMBER IS: ", PLAYERNUMBER)
-#     print(data)
-#     s.close()
-#     time.sleep(10)
-
-
-
-# print(PLAYS)
-
-
-
-# justin = sys.argv[1]
-# port = int(sys.argv[2])
-# string = "http://"+justin + ":" + sys.argv[2]
-#
-# r = requests.get(string)
-#
-# print(r.status_code)
-#
-# print(r.headers)
-#
-# print(r.url)
-
-
-
-
-
-
-
-
-
-# class Client:
-#
-#     h1= http.client.HTTPConnection(justin, port)
-#
-#
-#     HEADERSIZE = 10
-#     server = (sys.argv[1], int(sys.argv[2]))
-#     # s.bind((justin, port))
-#     s.connect(((sys.argv[1]), port))  #connect (ipadress, port)
-#     message = input("->")
-#     while True:
-#         s.sendto(message.encode('utf-8'), server)
-#         data, addr = s.recvfrom(port)
-#         data = data.decode('utf-8')
-#         print("received from server: " + data)
-#         message = input("->")
-#     sys.exit
-#
-#     print(full_msg)
-
-
-
-
-
-
-
-# conn = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-# conn.request("GET", string)
-# r1= conn.getresponse()
-# print(r1.status, r1.reason)
-# print ("f")
-
-
-
-
-#conn.request("POST", string, 'game.txt')
-# r = conn.getresponse()
-# print(r)
-
-# class Client:
-#
-#     print("Welcome to Rock, Paper, Scissors")
-#     val = input("Please enter your play")
-#     print(val)
-#
-#     number = secrets.randbelow(25)
-#     ip = sys.argv[1]
-#     port = sys.argv[2]
-#     string = "walrus"
-#     print (string)
-#
-#
-#
-#     if(val=="rock"):
-#         requests.put(string)
-#         print(number)
-
-
-    # HEADERSIZE = 10
-    # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # s.connect(((sys.argv[1]), int(sys.argv[2])))  # connect (ipadress, port)
-
-
-
-
-    # while True:
-    #
-    #     full_msg = b''
-    #     new_msg = True
-    #     while True:
-    #         msg = s.recv(1024)
-    #         if new_msg:
-    #             print(f"new message length: {msg[:HEADERSIZE]}")
-    #             msglen = int(msg[:HEADERSIZE])
-    #             new_msg = False
-    #         full_msg += msg
-    #         if len(full_msg) - HEADERSIZE == msglen:
-    #             print("full msg recieved")
-    #             #print(full_msg[HEADERSIZE:])
-    #             d = pickle.loads(full_msg[HEADERSIZE:])
-    #             new_msg = True
-    #             full_msg = b''
-    # print(full_msg)
-
-
-
-
-
-#cite your sources: https://stackoverflow.com/questions/8107177/using-python-requests-library-to-post-a-text-file
-
 

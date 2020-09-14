@@ -77,7 +77,7 @@ class RPShandler(SimpleHTTPRequestHandler):
         data = raw_post_data.decode('utf-8')
         new = str(data)
         split_data = new.split(" ")
-        print(split_data[0])
+        #print(split_data[0])
         print(split_data[1])
 
         if((split_data[1]=="ASSIGNME")&(split_data[0]=="Justin")):
@@ -97,7 +97,25 @@ class RPShandler(SimpleHTTPRequestHandler):
         self.send_head()
         self.send_response(200, message="Language")
 
+    def check_play(self, move):
+        if move == 'rock':
+            print("hi")
+            h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
+            h1.request("GET", "http://localhost:8000/newFile.txt")
+            print(h1.getresponse().msg)
+            self.send_response(200, 'rock')
+        elif move == 'scissors':
+            self.send_response(200, 'scissors')
+        elif move == 'paper':
+            self.send_response(200, 'paper')
 
+        return move
+        # filepath = os.path.join("/newFile1.txt")
+        # game1 = open(filepath, "r")
+
+    def respond(self, message):
+        message = "sending some stuff"
+        self.send_header(200, str(message))
 
 
 
