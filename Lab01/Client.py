@@ -94,7 +94,7 @@ class Client:
     def getResult(self):
         print("getting score: \n")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("GET", "/WhoWon.txt")  # http://192.168.56.1:1234
+        h1.request("GET", "/Lab01/WhoWon.txt")  # http://192.168.56.1:1234
         #print('1')
         y = h1.getresponse()
         z = y.read().decode('utf-8')
@@ -103,7 +103,7 @@ class Client:
     def getScore(self):
         print("Score of the game is: ")
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h1.request("GET", "/score.txt")  # http://192.168.56.1:1234
+        h1.request("GET", "/Lab01/score.txt")  # http://192.168.56.1:1234
         #print('1')
         y = h1.getresponse()
         z = y.read().decode('utf-8')
@@ -132,7 +132,7 @@ class Client:
         h1 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
         h1.request("POST", "/newFile1", body="{} I WOULD LIKE TO RESET THE GAME".format(self.PLAYER_NUMBER))
         h2 = http.client.HTTPConnection(sys.argv[1], int(sys.argv[2]))
-        h2.request("GET", "/newFile1.txt")
+        h2.request("GET", "/Lab01/newFile1.txt")
         y = h2.getresponse()
         z = y.read().decode('utf-8')
         print(z)
