@@ -15,18 +15,11 @@ RESET- CLEAR W/L RECORD.
 needs to accept ip address and port of server process
 python client.py 128.111.52.245 5000
 """
-import socket
-import pickle
-import sys
-import time
 
-import requests
-import secrets
-import http.client, urllib.parse, codecs
+import http.client
 import http.client
 import http.server
-import sys
-import SETUP_CREW
+
 """
 PROGRAMMING ASSIGNMENT 1
 BLAKE STANGER & JUSTIN GUERRERO
@@ -46,14 +39,10 @@ needs to accept ip address and port of server process
 python client.py 128.111.52.245 5000
 """
 
-import socket
 import sys
-import urllib3
 import socket
 import http.client
-import pickle
-import requests
-import SETUP_CREW
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 class Client:
     PLAYER_NUMBER = "UNASSIGNED"
