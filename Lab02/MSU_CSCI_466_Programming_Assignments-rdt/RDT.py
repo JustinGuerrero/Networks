@@ -90,7 +90,9 @@ class RDT:
 		# if this was the last packet, will return on the next iteration
 	
 	def rdt_2_1_send(self, msg_S):
-		pass
+		p = Packet(self.seq_num, msg_S)
+		cur_sequence = self.seq_num
+		while cur_sequence == self.seq_num:
 	
 	def rdt_2_1_receive(self):
 		pass
