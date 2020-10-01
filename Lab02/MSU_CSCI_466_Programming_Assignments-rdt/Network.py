@@ -10,8 +10,8 @@ import RDT
 class NetworkLayer:
     # configuration parameters
     prob_pkt_loss = 0
-    prob_byte_corr = .02
-    prob_pkt_reorder = 0
+    prob_byte_corr = 0.025
+    prob_pkt_reorder = 0.2
 
     # class variables
     sock = None
