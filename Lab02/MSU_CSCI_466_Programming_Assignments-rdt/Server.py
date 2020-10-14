@@ -39,7 +39,7 @@ if __name__ == '__main__':
 		# try to receiver message before timeout
 		#msg_S = rdt.rdt_1_0_receive()
 		msg_S = rdt.rdt_2_1_receive()
-		# msg_S = rdt.rdt_3_0_receive()
+		#msg_S = rdt.rdt_3_0_receive()
 		if msg_S is None:
 			if time_of_last_data + timeout < time.time():
 				break

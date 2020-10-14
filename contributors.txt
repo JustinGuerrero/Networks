@@ -1,0 +1,226 @@
+8b3adbe Justin Guerrero 2020-10-01 - UPDATE: file write in rdt
+ 3 files changed, 31 insertions(+), 23 deletions(-)
+
+720442c Justin Guerrero 2020-10-01 - committing major changes to every file because i haven't been commiting LOL
+ 4 files changed, 245 insertions(+), 144 deletions(-)
+
+78bc13f Justin Guerrero 2020-09-29 - UPDATE: file write in rdt
+ 1 file changed, 66 insertions(+), 1 deletion(-)
+
+75378d6 Justin Guerrero 2020-09-28 - UPDATE: file write in Client
+ 14 files changed, 3 insertions(+), 1094 deletions(-)
+
+3af7d75 Justin Guerrero 2020-09-22 - UPDATE: file write in Client
+ 14 files changed, 729 insertions(+)
+
+31f3b2e Justin Guerrero 2020-09-14 - UPDATE: file write in Client
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+16ed882 Justin Guerrero 2020-09-14 - UPDATE: file write in Client
+ 14 files changed, 9 insertions(+), 17 deletions(-)
+
+d483f2e Justin Guerrero 2020-09-14 - Merge remote-tracking branch 'origin/master'
+1dfb583 Justin Guerrero 2020-09-14 - UPDATE: file write in Client
+ 17 files changed, 58 insertions(+), 1033 deletions(-)
+
+88368d8 Blake Stanger 2020-09-10 - Working code with score
+ 2 files changed, 3 insertions(+), 6 deletions(-)
+
+c1bbb51 Blake Stanger 2020-09-10 - Working code with score
+ 2 files changed, 29 insertions(+), 4 deletions(-)
+
+ad2ee82 Justin Guerrero 2020-09-10 - UPDATE: file write in Client
+ 6 files changed, 11 insertions(+), 11 deletions(-)
+
+9e8214f Justin Guerrero 2020-09-10 - Merge remote-tracking branch 'origin/master'
+ae42b7a Blake Stanger 2020-09-10 - working code
+ 6 files changed, 17 insertions(+), 12 deletions(-)
+
+b61f19e Justin Guerrero 2020-09-10 - UPDATE: file write in Client
+ 3 files changed, 10 insertions(+), 16 deletions(-)
+
+28bdc3c Justin Guerrero 2020-09-10 - UPDATE: file write in Client
+ 5 files changed, 32 insertions(+), 39 deletions(-)
+
+ead3f13 Blake Stanger 2020-09-10 - working code
+ 5 files changed, 87 insertions(+), 51 deletions(-)
+
+f042f7a Blake Stanger 2020-09-10 - Player number 0 assigned and some
+ 2 files changed, 2 insertions(+), 10 deletions(-)
+
+5c80f8f Blake Stanger 2020-09-10 - Player number 0 assigned
+ 6 files changed, 36 insertions(+), 18 deletions(-)
+
+6de108c Blake Stanger 2020-09-10 - player number's and switch on play
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+9a8f7bf Blake Stanger 2020-09-10 - player number's and switch on play
+ 3 files changed, 10 insertions(+), 2 deletions(-)
+
+c95f821 Blake Stanger 2020-09-10 - UPDATE: Server.py gets more do_POST functionality
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+d5ef970 Blake Stanger 2020-09-10 - UPDATE: Server.py gets more do_POST functionality
+ 5 files changed, 15 insertions(+), 8 deletions(-)
+
+469efef Justin Guerrero 2020-09-10 - UPDATE: file write in Client
+ 5 files changed, 13 insertions(+), 26 deletions(-)
+
+e93bb48 Blake Stanger 2020-09-10 - SOME WORKIN CODE!!
+ 1 file changed, 44 insertions(+), 34 deletions(-)
+
+9fdff29 Blake Stanger 2020-09-10 - Here it is
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+9750567 Blake Stanger 2020-09-10 - Here it is
+ 1 file changed, 4 deletions(-)
+
+8b0a417 Blake Stanger 2020-09-10 - YO!
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+a70ff42 Blake Stanger 2020-09-10 - Merge remote-tracking branch 'origin/master'
+bfa22cf Blake Stanger 2020-09-10 - YO!
+ 3 files changed, 23 insertions(+), 27 deletions(-)
+
+133617c Blake Stanger 2020-09-10 - We may have actually did it this time
+ 7 files changed, 669 insertions(+), 104 deletions(-)
+
+6870ee2 Justin Guerrero 2020-09-09 - UPDATE: HTTP FILES ARE CLOSE
+ 6 files changed, 457 insertions(+), 71 deletions(-)
+
+647ed52 Justin Guerrero 2020-09-08 - UPDATE: HTTP FILES ARE CLOSE
+ 5 files changed, 154 insertions(+), 53 deletions(-)
+
+1c20c2c Justin Guerrero 2020-09-08 - Merge remote-tracking branch 'origin/master'
+8d4c80c Blake Stanger 2020-09-08 - Server over 9000
+ 4 files changed, 16 insertions(+), 5 deletions(-)
+
+8f5599f Justin Guerrero 2020-09-08 - Merge remote-tracking branch 'origin/master'
+931454f Blake Stanger 2020-09-08 - Server over 9000
+ 5 files changed, 16 insertions(+), 4 deletions(-)
+
+adddb56 Justin Guerrero 2020-09-08 - Merge remote-tracking branch 'origin/master'
+f1c3f74 Blake Stanger 2020-09-08 - Server 8004
+ 8 files changed, 61 insertions(+), 22 deletions(-)
+
+46c90ca Blake Stanger 2020-09-08 - Server 7.9
+ 3 files changed, 199 insertions(+), 97 deletions(-)
+
+177c473 Justin Guerrero 2020-09-08 - Merge remote-tracking branch 'origin/master'
+440a080 Blake Stanger 2020-09-07 - Server 9005
+ 7 files changed, 50 insertions(+), 22 deletions(-)
+
+eae3077 Blake Stanger 2020-09-07 - Server 7.9
+ 8 files changed, 89 insertions(+), 33 deletions(-)
+
+624327b Justin Guerrero 2020-09-07 - UPDATE: commiting my side of things
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+c091a61 Justin Guerrero 2020-09-07 - Merge remote-tracking branch 'origin/master'
+a57d51d Justin Guerrero 2020-09-07 - UPDATE: commiting my side of things
+ 3 files changed, 26 insertions(+), 36 deletions(-)
+
+c797e58 Blake Stanger 2020-09-07 - Server 7.9
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+c02a746 Blake Stanger 2020-09-07 - Merge remote-tracking branch 'origin/master'
+ce87eff Blake Stanger 2020-09-07 - Server 7.9
+ 6 files changed, 243 insertions(+), 159 deletions(-)
+
+363886b Justin Guerrero 2020-09-07 - UPDATE: commiting my side of things
+ 3 files changed, 59 insertions(+)
+
+7a5e91b Justin Guerrero 2020-09-07 - UPDATE: commiting my side of things
+ 6 files changed, 37 insertions(+), 71 deletions(-)
+
+5cebca5 Blake Stanger 2020-09-07 - Server 4.0
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+0a98086 Blake Stanger 2020-09-07 - NEW CLIENT AND SERVER 3.0
+ 1 file changed, 9 insertions(+), 12 deletions(-)
+
+fe30fca Blake Stanger 2020-09-07 - NEW CLIENT AND SERVER 2.0
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+fa22980 Blake Stanger 2020-09-07 - NEW CLIENT AND SERVER
+ 5 files changed, 314 insertions(+), 95 deletions(-)
+
+05a27e6 Blake Stanger 2020-09-06 - Merge remote-tracking branch 'origin/master'
+cde82c0 Blake Stanger 2020-09-06 - Working on client and Server.py
+ 8 files changed, 152 insertions(+), 90 deletions(-)
+
+71c8cc4 Justin Guerrero 2020-09-02 - UPDATE: game text file
+ 1 file changed, 1 insertion(+)
+
+b7c6ae2 Justin Guerrero 2020-09-02 - UPDATE: updated server side, submit box now writes to a file that saves to the repo.
+ 2 files changed, 19 insertions(+), 1 deletion(-)
+
+73a59d7 Justin Guerrero 2020-09-02 - UPDATE: updated test cly
+ 1 file changed, 40 insertions(+)
+
+3bd2327 Justin Guerrero 2020-09-02 - UPDATE: updated test cly
+ 2 files changed, 12 insertions(+), 10 deletions(-)
+
+d2e0019 Justin Guerrero 2020-09-02 - UPDATE: updated
+ 1 file changed, 7 insertions(+), 11 deletions(-)
+
+44899fb Justin Guerrero 2020-09-02 - UPDATE: updated client code for HTTPserver.py
+ 2 files changed, 28 insertions(+), 14 deletions(-)
+
+16adb32 Justin Guerrero 2020-09-02 - UPDATE: updated client code for HTTPclient.py
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+acc945d Justin Guerrero 2020-09-02 - UPDATE: updated client code for HTTPclient.py
+ 3 files changed, 69 insertions(+), 19 deletions(-)
+
+0782733 Justin Guerrero 2020-09-02 - UPDATE: Placing all files into their own directory for lab one to avoid clutter.
+ 5 files changed, 1 insertion(+), 4 deletions(-)
+
+264bb60 Justin Guerrero 2020-09-02 - UPDATE: added to the HTTPserver.py file
+ 1 file changed, 1 deletion(-)
+
+ba82bfe Justin Guerrero 2020-09-02 - UPDATE: added to the HTTPserver.py file
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+785813f Justin Guerrero 2020-09-02 - UPDATE: added to the HTTPserver.py file
+ 1 file changed, 36 insertions(+), 5 deletions(-)
+
+371a19a Justin Guerrero 2020-08-30 - UPDATE: added to the HTTPserver.py file
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+40bb37a Justin Guerrero 2020-08-30 - basic http server in httpserver.py file and client.py file for blake
+ 6 files changed, 79 insertions(+), 38 deletions(-)
+
+deef339 Blake Stanger 2020-08-30 - Added requirements to each class
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+e6e8995 Blake Stanger 2020-08-30 - Added requirements to each class
+ 1 file changed, 1 insertion(+)
+
+98de757 Blake Stanger 2020-08-30 - Added requirements to each class
+ 2 files changed, 41 insertions(+), 30 deletions(-)
+
+d8c1259 Blake Stanger 2020-08-30 - Added requirements to each class
+ 1 file changed, 14 insertions(+)
+
+12dcdba Blake Stanger 2020-08-30 - Added requirements to each class
+ 1 file changed, 20 insertions(+)
+
+ea384ed Blake Stanger 2020-08-30 - Merge remote-tracking branch 'origin/master'
+ead8e31 Justin Guerrero 2020-08-27 - Simple socket sending "pickles" which are objects
+ 2 files changed, 35 insertions(+), 9 deletions(-)
+
+bde7cca Justin Guerrero 2020-08-27 - working simple socker
+ 2 files changed, 33 insertions(+), 17 deletions(-)
+
+4c84d13 Blake Stanger 2020-08-27 - Added requirements to each class
+ 5 files changed, 36 insertions(+), 2 deletions(-)
+
+6ca8b67 Justin Guerrero 2020-08-27 - working on client side
+ 1 file changed, 19 insertions(+)
+
+7397604 Justin Guerrero 2020-08-27 - Adding new files
+ 6 files changed, 32 insertions(+)
+
+0330aba Justin Guerrero 2020-08-27 - Create README
+ 1 file changed, 62 insertions(+)

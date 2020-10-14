@@ -6,7 +6,7 @@ import hashlib
 
 debug = False
 
-
+#create a method for debugging messages
 def debug_message(message):
     if debug:
         print(message)
@@ -119,10 +119,14 @@ class RDT:
 		while cur_sequence == self.seq_num:
 			self.net_snd.udt_send(p.get_byte_S())
 			response = ''
+			#new while loop for receiving
 			while response == '':
 				response = self.net_rcv.udt_receive()
 			message_length = int(response[:Packet.length_S_length])
 			self.byte_buffer = response[:message_length]
+			#the statements below do a few things,
+			#if packet isn't corrupt parse response message, check sequence numbers
+			#and check ack numbers, if something is wrong the debug message sends a corruption error.
 			if not Packet.corrupt(response[:message_length]):
 				response_pack = Packet.from_byte_S(response[:message_length])
 				if response_pack.seq_num < self.seq_num:
@@ -146,18 +150,26 @@ class RDT:
 		r_S = None
 		b_S = self.net_rcv.udt_receive()
 		self.byte_buffer += b_S
+		#get sequence number
 		curr_seq = self.seq_num
+		#if the seq numbers are equal and the buffer is too small we break
 		while curr_seq == self.seq_num:
 			if len(self.byte_buffer) < Packet.length_S_length:
 				break
 			length = int(self.byte_buffer[:Packet.length_S_length])
 			if len(self.byte_buffer) < length:
 				break
-
+			# if the packet is corrupt we send the debugger in to alert the system
+			# that there was a corruption and send a a nak
 			if Packet.corrupt(self.byte_buffer):
 				debug_message("didn't get the packet...sending a nak")
 				answer = Packet(self.seq_num, "0")
 				self.net_snd.udt_send(answer.get_byte_S())
+				# if the packet is within the buffer size we check if it's an
+				#ack packet, if so we move forward and check sequence numbers,
+				#if the sequence number is smaller we move on since we've received it
+				# and send another nak for the next packet to be transmitted
+				# if we get the correct one we send an ack and continue
 			else:
 				p = Packet.from_byte_S(self.byte_buffer[0:length])
 				if p.is_ack_pack():
@@ -183,7 +195,8 @@ class RDT:
 	def rdt_3_0_send(self, msg_S):
 		p = Packet(self.seq_num, msg_S)
 		current_seq = self.seq_num
-
+		# similar to rdt2.1 we must check seq numbers but here we will wait
+		# using the timer method to check for time outs
 		while current_seq == self.seq_num:
 			self.net_snd.udt_send(p.get_byte_S())
 			response = ''
@@ -195,12 +208,13 @@ class RDT:
 
 			if response == '':
 				continue
-
+			# debug message sends response if there is not a timout
 			debug_message("sender: " + response)
 
 			msg_length = int(response[:Packet.length_S_length])
 			self.byte_buffer = response[msg_length:]
-
+			#if the packet is a timeout or corrupted or something else we do similar things
+			# as we did in 2.1 by sending debug messages
 			if not Packet.corrupt(response[:msg_length]):
 				response_p = Packet.from_byte_S(response[:msg_length])
 				if response_p.seq_num < self.seq_num:

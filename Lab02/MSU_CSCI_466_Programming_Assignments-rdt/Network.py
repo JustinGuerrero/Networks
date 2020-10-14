@@ -10,7 +10,7 @@ import RDT
 class NetworkLayer:
     # configuration parameters
     prob_pkt_loss = 0
-    prob_byte_corr = 0.025
+    prob_byte_corr = 0.00
     prob_pkt_reorder = 0.2
 
     # class variables
@@ -33,7 +33,7 @@ class NetworkLayer:
         elif role_S == 'server':
             print('Network: role is server')
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.sock.bind(('', port))
+            self.sock.bind(('localhost', port))
             self.sock.listen(1)
             self.conn, addr = self.sock.accept()
             self.conn.settimeout(self.socket_timeout)
